@@ -81,13 +81,13 @@ export class AppHome extends LitElement {
 
       .hero {
         text-align: center;
-        padding: 5px 16px 24px;
+        padding: 3px 16px 24px;
       }
 
       .hero-icon {
         width: 300px;
         height: 300px;
-        margin: 0 auto 5px;
+        margin: 0 auto 3px;
         object-fit: contain;
       }
 
