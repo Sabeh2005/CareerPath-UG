@@ -9,7 +9,7 @@
   "start_url": "/",
   "theme_color": "#0B1D3A",
   "background_color": "#0B1D3A",
-  "orientation": "portrait",
+  "orientation": "any",
   "categories": ["education", "productivity"],
   "lang": "en",
   "launch_handler": {
