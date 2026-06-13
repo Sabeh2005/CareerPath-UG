@@ -85,9 +85,9 @@ export class AppHome extends LitElement {
       }
 
       .hero-icon {
-        width: 130px;
-        height: 130px;
-        margin: 0 auto 20px;
+        width: 180px;
+        height: 180px;
+        margin: 0 auto 8px;
         object-fit: contain;
       }
 
