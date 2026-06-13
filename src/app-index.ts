@@ -10,6 +10,8 @@ import { router, resolveRouterPath } from './router';
 @customElement('app-index')
 export class AppIndex extends LitElement {
   @state() private _currentTab = 'home';
+  @state() private _deferredPrompt: any = null;
+  @state() private _showInstallPrompt = false;
 
   static styles = css`
     :host {
@@ -76,6 +78,102 @@ export class AppIndex extends LitElement {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.05); }
     }
+
+    .install-prompt {
+      position: fixed;
+      bottom: 88px;
+      left: 16px;
+      right: 16px;
+      background: rgba(11, 29, 58, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      box-shadow: var(--shadow-xl);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @media (min-width: 768px) {
+      .install-prompt {
+        max-width: 400px;
+        left: auto;
+        right: 24px;
+        bottom: 24px;
+      }
+    }
+
+    .ip-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ip-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      object-fit: contain;
+    }
+
+    .ip-title-group h3 {
+      color: var(--white);
+      font-size: 16px;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .ip-title-group p {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 12px;
+      margin: 0;
+    }
+
+    .ip-description {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 13px;
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    .ip-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      margin-top: 4px;
+    }
+
+    .ip-btn {
+      padding: 8px 16px;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .ip-btn-install {
+      background: linear-gradient(135deg, var(--emerald), var(--emerald-dark));
+      color: var(--white);
+      border: none;
+    }
+
+    .ip-btn-install:active {
+      transform: scale(0.97);
+    }
+
+    .ip-btn-later {
+      background: transparent;
+      color: rgba(255, 255, 255, 0.6);
+      border: none;
+    }
+
+    .ip-btn-later:active {
+      color: var(--white);
+    }
   `;
 
   firstUpdated() {
@@ -102,6 +200,40 @@ export class AppIndex extends LitElement {
     this._currentTab = tabMap[path] || 'home';
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    
+    window.addEventListener('beforeinstallprompt' as any, (e: any) => {
+      e.preventDefault();
+      this._deferredPrompt = e;
+      
+      const dismissed = sessionStorage.getItem('pwa-prompt-dismissed');
+      if (!dismissed) {
+        this._showInstallPrompt = true;
+      }
+    });
+
+    window.addEventListener('appinstalled', () => {
+      this._deferredPrompt = null;
+      this._showInstallPrompt = false;
+    });
+  }
+
+  private _dismissInstall() {
+    this._showInstallPrompt = false;
+    sessionStorage.setItem('pwa-prompt-dismissed', 'true');
+  }
+
+  private async _installApp() {
+    if (!this._deferredPrompt) return;
+    
+    this._showInstallPrompt = false;
+    this._deferredPrompt.prompt();
+    const { outcome } = await this._deferredPrompt.userChoice;
+    console.log(`User response to the install prompt: ${outcome}`);
+    this._deferredPrompt = null;
+  }
+
   private _handleNavChange(e: CustomEvent) {
     const { path } = e.detail;
     router.navigate(path);
@@ -117,6 +249,31 @@ export class AppIndex extends LitElement {
         activeTab=${this._currentTab}
         @nav-change=${this._handleNavChange}
       ></bottom-nav>
+
+      ${this._showInstallPrompt
+        ? html`
+            <div class="install-prompt">
+              <div class="ip-header">
+                <img class="ip-icon" src="/assets/icons/icon_192.png" alt="CareerPath UG" />
+                <div class="ip-title-group">
+                  <h3>Install CareerPath UG</h3>
+                  <p>Fast, offline-capable guidance app</p>
+                </div>
+              </div>
+              <p class="ip-description">
+                Install this app on your device for quick access, offline career mapping, and a full-screen experience.
+              </p>
+              <div class="ip-actions">
+                <button class="ip-btn ip-btn-later" @click=${this._dismissInstall}>
+                  Later
+                </button>
+                <button class="ip-btn ip-btn-install" @click=${this._installApp}>
+                  Install
+                </button>
+              </div>
+            </div>
+          `
+        : ''}
 
       <!-- Shoelace theme import -->
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.18.0/dist/themes/light.css" />

@@ -61,7 +61,7 @@
   "screenshots": [
     {
       "src": "assets/icons/splash.png",
-      "sizes": "1284x2778",
+      "sizes": "1284x1284",
       "type": "image/png",
       "form_factor": "narrow",
       "label": "CareerPath UG home screen"
