@@ -31,19 +31,13 @@ export class AppHome extends LitElement {
       }
 
       .welcome-logo {
-        width: 100px;
-        height: 100px;
-        background: linear-gradient(135deg, var(--emerald) 0%, #008C6E 100%);
+        width: 120px;
+        height: 120px;
         border-radius: 28px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 44px;
-        font-weight: 800;
-        color: var(--white);
-        box-shadow: 0 20px 60px rgba(0, 184, 148, 0.35);
         margin-bottom: 32px;
         animation: float 3s ease-in-out infinite;
+        box-shadow: 0 20px 60px rgba(0, 184, 148, 0.35);
+        object-fit: contain;
       }
 
       .welcome-screen h1 {
@@ -93,16 +87,12 @@ export class AppHome extends LitElement {
       }
 
       .hero-icon {
-        width: 72px;
-        height: 72px;
-        background: linear-gradient(135deg, var(--emerald) 0%, var(--emerald-dark) 100%);
-        border-radius: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 36px;
+        width: 88px;
+        height: 88px;
+        border-radius: 22px;
         margin: 0 auto 20px;
         box-shadow: 0 12px 40px rgba(0, 184, 148, 0.3);
+        object-fit: contain;
       }
 
       .hero h1 {
@@ -243,7 +233,7 @@ export class AppHome extends LitElement {
       ${this._showWelcome
         ? html`
             <div class="welcome-screen ${this._dismissed ? 'dismissed' : ''}">
-              <div class="welcome-logo">CP</div>
+              <img class="welcome-logo" src="/assets/icons/icon_192.png" alt="CareerPath UG" />
               <h1>CareerPath UG</h1>
               <p class="subtitle">
                 Map your subjects to modern, high-earning careers. 
@@ -257,7 +247,7 @@ export class AppHome extends LitElement {
         : html`
             <div class="home-content">
               <div class="hero">
-                <div class="hero-icon">🎯</div>
+                <img class="hero-icon" src="/assets/icons/icon_192.png" alt="CareerPath UG" />
                 <h1>CareerPath UG</h1>
                 <p>Map your subjects to modern, high-earning careers</p>
               </div>
