@@ -12,7 +12,7 @@ import type { CareerPath, Degree } from '../types';
 
 @customElement('app-mapper')
 export class AppMapper extends LitElement {
-  @state() private _mode: 'olevel' | 'alevel' = 'olevel';
+  @state() private _view: 'landing' | 'olevel' | 'alevel' = 'landing';
   @state() private _selectedSubjects: string[] = [];
   @state() private _selectedCombo = '';
   @state() private _mappedCareers: CareerPath[] = [];
@@ -30,33 +30,148 @@ export class AppMapper extends LitElement {
         animation: fadeIn 0.3s ease;
       }
 
-      .mode-toggle {
-        display: flex;
-        background: var(--gray-100);
-        border-radius: var(--radius-md);
-        padding: 4px;
-        margin-bottom: 24px;
-      }
-
-      .mode-btn {
-        flex: 1;
-        padding: 12px;
-        border-radius: 8px;
-        font-size: 14px;
-        font-weight: 600;
-        background: transparent;
-        color: var(--gray-500);
-        cursor: pointer;
-        transition: all 0.2s;
+      /* Landing page */
+      .landing-header {
         text-align: center;
-        font-family: var(--font);
-        border: none;
+        margin-bottom: 32px;
+        padding-top: 16px;
       }
 
-      .mode-btn.active {
-        background: var(--white);
+      .landing-header .hero-icon {
+        font-size: 56px;
+        margin-bottom: 12px;
+      }
+
+      .landing-header h2 {
+        font-size: 22px;
+        font-weight: 800;
         color: var(--deep-blue);
+        margin-bottom: 8px;
+      }
+
+      .landing-header p {
+        font-size: 14px;
+        color: var(--gray-500);
+        line-height: 1.6;
+        max-width: 320px;
+        margin: 0 auto;
+      }
+
+      .level-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-top: 8px;
+      }
+
+      .level-btn {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 24px 20px;
+        border-radius: var(--radius-lg);
+        border: 2px solid var(--border);
+        background: var(--surface);
+        cursor: pointer;
+        transition: all 0.25s ease;
+        font-family: var(--font);
+        text-align: left;
+        width: 100%;
         box-shadow: var(--shadow-sm);
+      }
+
+      .level-btn:active {
+        transform: scale(0.97);
+      }
+
+      .level-btn:hover {
+        border-color: var(--emerald);
+        box-shadow: var(--shadow-md);
+      }
+
+      .level-btn .btn-icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        flex-shrink: 0;
+      }
+
+      .level-btn.olevel .btn-icon {
+        background: linear-gradient(135deg, rgba(0, 184, 148, 0.15), rgba(0, 184, 148, 0.05));
+      }
+
+      .level-btn.alevel .btn-icon {
+        background: linear-gradient(135deg, rgba(11, 29, 58, 0.12), rgba(11, 29, 58, 0.04));
+      }
+
+      .level-btn .btn-text {
+        flex: 1;
+      }
+
+      .level-btn .btn-text h3 {
+        font-size: 17px;
+        font-weight: 700;
+        color: var(--deep-blue);
+        margin-bottom: 4px;
+      }
+
+      .level-btn .btn-text p {
+        font-size: 13px;
+        color: var(--gray-500);
+        line-height: 1.4;
+        margin: 0;
+      }
+
+      .level-btn .btn-arrow {
+        font-size: 20px;
+        color: var(--gray-300);
+        flex-shrink: 0;
+        transition: transform 0.2s ease, color 0.2s ease;
+      }
+
+      .level-btn:hover .btn-arrow {
+        color: var(--emerald);
+        transform: translateX(4px);
+      }
+
+      /* Back navigation */
+      .back-bar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+
+      .back-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        background: var(--gray-100);
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        color: var(--gray-600);
+        transition: all 0.2s ease;
+        font-family: var(--font);
+        flex-shrink: 0;
+      }
+
+      .back-btn:active {
+        transform: scale(0.93);
+        background: var(--gray-200);
+      }
+
+      .back-bar .page-label {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--deep-blue);
       }
 
       .section-title {
@@ -345,38 +460,98 @@ export class AppMapper extends LitElement {
     this._showResults = true;
   }
 
+  private _navigateToLevel(level: 'olevel' | 'alevel') {
+    this._view = level;
+    this._showResults = false;
+    this._selectedSubjects = [];
+    this._selectedCombo = '';
+    this._mappedCareers = [];
+    this._mappedDegrees = [];
+    this._suggestedCombo = '';
+  }
+
+  private _backToLanding() {
+    this._view = 'landing';
+    this._showResults = false;
+    this._selectedSubjects = [];
+    this._selectedCombo = '';
+    this._mappedCareers = [];
+    this._mappedDegrees = [];
+    this._suggestedCombo = '';
+  }
+
   render() {
     return html`
       <app-header title="Subject Mapper"></app-header>
       <div class="mapper-page">
-        <div class="mode-toggle">
-          <button
-            class="mode-btn ${this._mode === 'olevel' ? 'active' : ''}"
-            @click=${() => { this._mode = 'olevel'; this._showResults = false; this._selectedSubjects = []; this._selectedCombo = ''; }}
-          >
-            O-Level
-          </button>
-          <button
-            class="mode-btn ${this._mode === 'alevel' ? 'active' : ''}"
-            @click=${() => { this._mode = 'alevel'; this._showResults = false; this._selectedSubjects = []; this._selectedCombo = ''; }}
-          >
-            A-Level
-          </button>
-        </div>
-
-        ${this._mode === 'olevel' ? this._renderOLevel() : this._renderALevel()}
-
-        ${this._showResults ? this._renderResults() : html`
-          <div class="empty-state">
-            <div class="icon">${this._mode === 'olevel' ? '📚' : '🎓'}</div>
-            <h3>Select ${this._mode === 'olevel' ? '3 subjects' : 'a combination'}</h3>
-            <p>${this._mode === 'olevel'
-              ? 'Pick your top 3 O-Level subjects above to see suggested A-Level combinations and modern careers.'
-              : 'Select your A-Level combination from the dropdown to see matching degrees and careers.'}
-            </p>
-          </div>
-        `}
+        ${this._view === 'landing' ? this._renderLanding() : ''}
+        ${this._view === 'olevel' ? this._renderOLevelView() : ''}
+        ${this._view === 'alevel' ? this._renderALevelView() : ''}
       </div>
+    `;
+  }
+
+  private _renderLanding() {
+    return html`
+      <div class="landing-header">
+        <div class="hero-icon">🗺️</div>
+        <h2>Choose Your Level</h2>
+        <p>Select whether you want to explore O-Level subjects or A-Level combinations to discover your career path.</p>
+      </div>
+
+      <div class="level-buttons">
+        <button class="level-btn olevel" @click=${() => this._navigateToLevel('olevel')}>
+          <div class="btn-icon">📚</div>
+          <div class="btn-text">
+            <h3>O-Level</h3>
+            <p>Pick your top 3 subjects to get A-Level combo suggestions and career matches.</p>
+          </div>
+          <span class="btn-arrow">›</span>
+        </button>
+
+        <button class="level-btn alevel" @click=${() => this._navigateToLevel('alevel')}>
+          <div class="btn-icon">🎓</div>
+          <div class="btn-text">
+            <h3>A-Level</h3>
+            <p>Select your subject combination to see matching degrees and modern careers.</p>
+          </div>
+          <span class="btn-arrow">›</span>
+        </button>
+      </div>
+    `;
+  }
+
+  private _renderOLevelView() {
+    return html`
+      <div class="back-bar">
+        <button class="back-btn" @click=${this._backToLanding}>←</button>
+        <span class="page-label">O-Level</span>
+      </div>
+      ${this._renderOLevel()}
+      ${this._showResults ? this._renderResults() : html`
+        <div class="empty-state">
+          <div class="icon">📚</div>
+          <h3>Select 3 subjects</h3>
+          <p>Pick your top 3 O-Level subjects above to see suggested A-Level combinations and modern careers.</p>
+        </div>
+      `}
+    `;
+  }
+
+  private _renderALevelView() {
+    return html`
+      <div class="back-bar">
+        <button class="back-btn" @click=${this._backToLanding}>←</button>
+        <span class="page-label">A-Level</span>
+      </div>
+      ${this._renderALevel()}
+      ${this._showResults ? this._renderResults() : html`
+        <div class="empty-state">
+          <div class="icon">🎓</div>
+          <h3>Select a combination</h3>
+          <p>Select your A-Level combination from the dropdown to see matching degrees and careers.</p>
+        </div>
+      `}
     `;
   }
 
@@ -449,7 +624,7 @@ export class AppMapper extends LitElement {
   }
 
   private _renderResults() {
-    const combo = this._mode === 'olevel' ? this._suggestedCombo : this._selectedCombo;
+    const combo = this._view === 'olevel' ? this._suggestedCombo : this._selectedCombo;
 
     return html`
       <div class="results-section">
