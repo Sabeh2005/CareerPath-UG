@@ -1,0 +1,93 @@
+{
+  "id": "/",
+  "scope": "/",
+  "name": "CareerPath UG",
+  "short_name": "CareerPath UG",
+  "description": "Map your subjects to modern, high-earning careers. Career guidance for O-Level and A-Level students in Uganda.",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay"],
+  "start_url": "/",
+  "theme_color": "#0B1D3A",
+  "background_color": "#0B1D3A",
+  "orientation": "portrait",
+  "categories": ["education", "productivity"],
+  "lang": "en",
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  },
+  "icons": [
+    {
+      "src": "assets/icons/icon_48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon_72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon_96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon_128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon_192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon_384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon_512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon_512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "assets/icons/splash.png",
+      "sizes": "1284x2778",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "CareerPath UG home screen"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Career Match Quiz",
+      "short_name": "Quiz",
+      "description": "Take the career match quiz to discover modern careers",
+      "url": "/quiz",
+      "icons": [{ "src": "assets/icons/icon_192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Subject Mapper",
+      "short_name": "Mapper",
+      "description": "Map your subjects to university degrees and careers",
+      "url": "/mapper",
+      "icons": [{ "src": "assets/icons/icon_192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "My Results",
+      "short_name": "Results",
+      "description": "View your saved career match results",
+      "url": "/results",
+      "icons": [{ "src": "assets/icons/icon_192.png", "sizes": "192x192" }]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>CareerPath UG</title>
+
+  <base href="/" />
+
+  <meta name="viewport"
+    content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=no" />
+  <meta name="description" content="Map your subjects to modern, high-earning careers. Career guidance for O-Level and A-Level students in Uganda." />
+
+  <meta name="theme-color" content="#0B1D3A" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="CareerPath UG" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <link rel="icon" href="/assets/icons/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/assets/icons/icon_192.png" />
+  <link rel="apple-touch-startup-image" href="/assets/icons/splash.png" />
+
+  <link rel="manifest" href="manifest.json" />
+
+  <script type="module" src="/src/app-index.ts"></script>
+</head>
+
+<body>
+  <app-index></app-index>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js');
+      });
+    }
+  </script>
+</body>
+
+</html>
