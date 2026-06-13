@@ -80,14 +80,17 @@ export class AppHome extends LitElement {
       }
 
       .hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         text-align: center;
-        padding: 3px 16px 24px;
+        padding: 4px 16px 24px;
+        gap: 3px;
       }
 
       .hero-icon {
-        width: 300px;
-        height: 300px;
-        margin: 0 auto 3px;
+        width: 220px;
+        height: 220px;
         object-fit: contain;
       }
 
@@ -96,7 +99,7 @@ export class AppHome extends LitElement {
         font-weight: 800;
         color: var(--deep-blue);
         letter-spacing: -0.5px;
-        margin-bottom: 8px;
+        margin: 0;
       }
 
       .hero p {
@@ -104,7 +107,7 @@ export class AppHome extends LitElement {
         font-size: 15px;
         line-height: 1.6;
         max-width: 300px;
-        margin: 0 auto;
+        margin: 0;
       }
 
       .features {
@@ -229,7 +232,7 @@ export class AppHome extends LitElement {
       ${this._showWelcome
         ? html`
             <div class="welcome-screen ${this._dismissed ? 'dismissed' : ''}">
-              <img class="welcome-logo" src="/assets/icons/icon_192.png" alt="CareerPath UG" />
+              <img class="welcome-logo" src="/assets/icons/512x512.png" alt="CareerPath UG" />
               <h1>CareerPath UG</h1>
               <p class="subtitle">
                 Map your subjects to modern, high-earning careers. 
@@ -243,7 +246,7 @@ export class AppHome extends LitElement {
         : html`
             <div class="home-content">
               <div class="hero">
-                <img class="hero-icon" src="/assets/icons/icon_192.png" alt="CareerPath UG" />
+                <img class="hero-icon" src="/assets/icons/512x512.png" alt="CareerPath UG" />
                 <h1>CareerPath UG</h1>
                 <p>Map your subjects to modern, high-earning careers</p>
               </div>
