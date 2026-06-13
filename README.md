@@ -1,35 +1,113 @@
-# PWA Starter
+# CareerPath UG
 
-[**Straight to Full Documentation**](https://docs.pwabuilder.com/#/starter/quick-start)
+**Map your subjects to modern, high-earning careers.**
 
-The PWABuilder pwa-starter is our opinionated, best practices, production tested starter that we use to build all of our PWAs, including [PWABuilder itself](https://blog.pwabuilder.com/posts/introducing-the-brand-new-pwa-builder/)! The pwa-starter is a starter codebase, just like create-react-app or the Angular CLI can generate, that uses the PWABuilder team&#39;s preferred front-end tech stack. We also have a CLI tool to allow you to create a PWA template from the command line.
+CareerPath UG is a Progressive Web App (PWA) built for O-Level and A-Level students in Uganda. It helps you discover modern career paths, university degree programs, and subject combinations — all fully offline.
 
-## Jump Right In
+![CareerPath UG](public/assets/icons/icon.svg)
 
-Install the PWABuilder CLI:
+---
 
-`npm i -g @pwabuilder/cli`
+## Features
 
-And create a new app with this command:
+### 🎯 Career Match Quiz
+An interactive step-by-step quiz that suggests modern, high-earning careers based on your current level and subject choices. Results are saved locally and persist across sessions.
 
-`pwa create`
+- **O-Level**: Pick your top 3 favorite subjects → get career recommendations
+- **A-Level**: Select your track (Sciences, Arts, Business) and strengths → get personalized career matches
 
-And start your app locally with:
+### 🗺️ Subject & Course Mapper
+Map your subjects to university degrees and modern careers:
 
-`pwa start`
+- **O-Level Mode**: Select 3 subjects → discover the best A-Level combination and the careers it unlocks
+- **A-Level Mode**: Choose from 50+ UNEB-approved combinations → see recommended degree programs at Makerere and Kyambogo universities with their modern career outcomes
 
-And that's it! Good luck on your Progressive Web App adventure!
+### 📊 Saved Results
+Your quiz results are automatically saved using `localStorage`. Access them anytime from the Results tab.
 
-## More Info
+---
 
-[![Get started with the pwa-starter!](https://img.youtube.com/vi/u3pWKpmic_k/0.jpg)](https://www.youtube.com/watch?v=u3pWKpmic_k)
+## Tech Stack
 
-With it you get an app that:
-- Has no build system to set up and no boilerplate code to add. Everything is included out of the box.
-- Has a Service Worker system using [Workbox](https://developers.google.com/web/tools/workbox/)
-- Scores close to 100 on Lighthouse out of the box
-- Has everything needed to be installable in the browser
-- Is ready to be package for the app stores using [PWABuilder](https://www.pwabuilder.com)
-- Uses the [Azure Static Web Apps CLI](https://azure.github.io/static-web-apps-cli) which enables emulating your production environment locally, and gets you ready for deploying to Azure Static Web Apps!
+- **[Vite](https://vitejs.dev/)** — Build tool and dev server
+- **[TypeScript](https://www.typescriptlang.org/)** — Type-safe development
+- **[Lit](https://lit.dev/)** — Web components framework
+- **[Shoelace](https://shoelace.style/)** — UI component library (bundled locally)
+- **[Workbox](https://developers.google.com/web/tools/workbox/)** — Service worker and offline caching
+- **[vite-plugin-pwa](https://vite-pwa-org.netlify.app/)** — PWA build integration
 
-and all with just a few button clicks 😊.
+---
+
+## Getting Started
+
+### Prerequisites
+- Node.js 18+
+- npm
+
+### Install
+```bash
+npm install
+```
+
+### Development
+```bash
+npm run dev
+```
+Opens the app at `http://localhost:5173`.
+
+### Production Build
+```bash
+npm run build
+```
+Output is in the `dist/` directory with a fully precached service worker.
+
+---
+
+## PWA & Offline
+
+CareerPath UG is designed for offline-first usage:
+
+- **Precaching**: All app shell assets (HTML, JS, CSS, icons) are precached during build
+- **Runtime caching**: External assets use `StaleWhileRevalidate` and `CacheFirst` strategies
+- **Installable**: Full Web App Manifest with home screen shortcuts
+- **Offline**: Once loaded, the app works 100% without an internet connection
+
+---
+
+## Icon Assets
+
+| Asset | Size | Format |
+|-------|------|--------|
+| Favicon | — | SVG |
+| App Icon | 48×48 – 512×512 | PNG |
+| App Icon (maskable) | 512×512 | PNG |
+| Splash Screen | 1284×2778 | PNG |
+
+---
+
+## Project Structure
+
+```
+src/
+├── app-index.ts          # App shell with navigation
+├── router.ts             # Client-side routing
+├── types.ts              # TypeScript interfaces
+├── store.ts              # localStorage persistence
+├── mockData.ts           # Subject, degree, and career data
+├── styles/
+│   └── global.css        # Theme variables and base styles
+├── components/
+│   ├── header.ts         # Top navigation bar
+│   └── bottom-nav.ts     # Bottom tab navigation
+└── pages/
+    ├── app-home.ts       # Welcome screen and home page
+    ├── app-quiz.ts       # Career Match Quiz
+    ├── app-mapper.ts     # Subject & Course Mapper
+    └── app-results.ts    # Saved results viewer
+```
+
+---
+
+## License
+
+ISC
