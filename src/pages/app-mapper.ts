@@ -246,26 +246,96 @@ export class AppMapper extends LitElement {
         color: var(--white);
       }
 
-      .combo-select {
-        width: 100%;
-        padding: 16px;
-        border-radius: var(--radius-md);
-        border: 2px solid var(--border);
-        font-size: 15px;
-        font-weight: 500;
-        font-family: var(--font);
-        color: var(--text-primary);
-        background: var(--surface);
-        appearance: none;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23475569' d='M1.41 0L6 4.58 10.59 0 12 1.41l-6 6-6-6z'/%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: right 16px center;
-        cursor: pointer;
-        transition: border-color 0.2s;
+      .combo-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
       }
 
-      .combo-select:focus {
+      .combo-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 16px;
+        border-radius: var(--radius-md);
+        background: var(--surface);
+        border: 2px solid var(--border);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-family: var(--font);
+        text-align: left;
+        width: 100%;
+      }
+
+      .combo-item:active {
+        transform: scale(0.98);
+      }
+
+      .combo-item.selected {
         border-color: var(--emerald);
+        background: rgba(0, 184, 148, 0.06);
+        box-shadow: 0 0 0 3px rgba(0, 184, 148, 0.1);
+      }
+
+      .combo-item .code-badge {
+        min-width: 44px;
+        height: 32px;
+        border-radius: 8px;
+        background: var(--deep-blue);
+        color: var(--white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        flex-shrink: 0;
+      }
+
+      .combo-item.selected .code-badge {
+        background: var(--emerald);
+      }
+
+      .combo-item .combo-info {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .combo-item .combo-name {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--deep-blue);
+        line-height: 1.3;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .combo-item .combo-cat {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 2px 8px;
+        border-radius: 10px;
+        margin-top: 4px;
+      }
+
+      .cat-sciences { background: rgba(59, 130, 246, 0.1); color: #1D4ED8; }
+      .cat-arts     { background: rgba(168, 85, 247, 0.1);  color: #7E22CE; }
+      .cat-business { background: rgba(234, 179, 8, 0.12);  color: #92400E; }
+      .cat-mixed    { background: rgba(34, 197, 94, 0.1);   color: #15803D; }
+      .cat-languages{ background: rgba(239, 68, 68, 0.1);   color: #B91C1C; }
+
+      .combo-item .check-mark {
+        font-size: 18px;
+        color: var(--emerald);
+        flex-shrink: 0;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+      }
+
+      .combo-item.selected .check-mark {
+        opacity: 1;
       }
 
       .results-section {
@@ -438,13 +508,13 @@ export class AppMapper extends LitElement {
     this._showResults = true;
   }
 
-  private _onComboChange(e: Event) {
-    const val = (e.target as HTMLSelectElement).value;
-    this._selectedCombo = val;
-    if (val) {
-      this._computeALevelResults(val);
-    } else {
+  private _selectCombo(code: string) {
+    if (this._selectedCombo === code) {
+      this._selectedCombo = '';
       this._showResults = false;
+    } else {
+      this._selectedCombo = code;
+      this._computeALevelResults(code);
     }
   }
 
@@ -580,27 +650,42 @@ export class AppMapper extends LitElement {
     `;
   }
 
+  private _getCategoryClass(category: string): string {
+    return 'cat-' + category.toLowerCase();
+  }
+
   private _renderALevel() {
     const combos = getAllComboCodes();
 
     return html`
       <div class="section-title">Your A-Level Combination</div>
-      <div class="section-desc">Select your exact subject combination to see matching degree programs and careers.</div>
+      <div class="section-desc">Tap your subject combination to see matching degrees and careers.</div>
 
-      <select class="combo-select" @change=${this._onComboChange} .value=${this._selectedCombo}>
-        <option value="">-- Select combination --</option>
+      <div class="combo-list">
         ${combos.map(
           code => {
             const combo = getCombinationByCode(code);
+            if (!combo) return '';
+            const isSelected = this._selectedCombo === code;
             return html`
-              <option value=${code}>${code} — ${combo?.fullName || ''}</option>
+              <button
+                class="combo-item ${isSelected ? 'selected' : ''}"
+                @click=${() => this._selectCombo(code)}
+              >
+                <span class="code-badge">${code}</span>
+                <div class="combo-info">
+                  <div class="combo-name">${combo.fullName}</div>
+                  <span class="combo-cat ${this._getCategoryClass(combo.category)}">${combo.category}</span>
+                </div>
+                <span class="check-mark">✓</span>
+              </button>
             `;
           }
         )}
-      </select>
+      </div>
 
       ${this._selectedCombo ? html`
-        <div class="hint">
+        <div class="hint" style="margin-top:16px;">
           <span>💡</span>
           <span>${getCombinationByCode(this._selectedCombo)?.fullName}</span>
         </div>
