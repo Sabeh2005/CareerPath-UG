@@ -31,12 +31,10 @@ export class AppHome extends LitElement {
       }
 
       .welcome-logo {
-        width: 120px;
-        height: 120px;
-        border-radius: 28px;
+        width: 150px;
+        height: 150px;
         margin-bottom: 32px;
         animation: float 3s ease-in-out infinite;
-        box-shadow: 0 20px 60px rgba(0, 184, 148, 0.35);
         object-fit: contain;
       }
 
@@ -87,11 +85,9 @@ export class AppHome extends LitElement {
       }
 
       .hero-icon {
-        width: 88px;
-        height: 88px;
-        border-radius: 22px;
+        width: 130px;
+        height: 130px;
         margin: 0 auto 20px;
-        box-shadow: 0 12px 40px rgba(0, 184, 148, 0.3);
         object-fit: contain;
       }
 
