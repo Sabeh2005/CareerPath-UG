@@ -1,6 +1,7 @@
 import { LitElement, css, html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { sharedStyles } from '../styles/shared-styles';
+import { getTagEmoji, getTagClass, formatSalary } from '../utils';
 import { getQuizResults, clearQuiz } from '../store';
 import type { CareerPath } from '../types';
 
@@ -66,52 +67,6 @@ export class AppResults extends LitElement {
         border: 1px solid var(--border);
         animation: slideUp 0.4s ease;
       }
-
-      .tag-chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 5px 12px 5px 8px;
-        border-radius: 20px;
-        font-size: 12px;
-        font-weight: 600;
-        letter-spacing: 0.3px;
-        margin-bottom: 12px;
-        width: fit-content;
-        border: 1.5px solid transparent;
-        backdrop-filter: blur(4px);
-        transition: transform 0.15s ease, box-shadow 0.15s ease;
-      }
-
-      .tag-chip:active {
-        transform: scale(0.96);
-      }
-
-      .tag-chip .tag-emoji {
-        font-size: 15px;
-        line-height: 1;
-      }
-
-      .tag-chip .tag-label {
-        text-transform: capitalize;
-      }
-
-      /* Tag color themes */
-      .tag-brain  { background: rgba(139, 92, 246, 0.12); color: #6D28D9; border-color: rgba(139, 92, 246, 0.25); }
-      .tag-chart  { background: rgba(59, 130, 246, 0.12); color: #1D4ED8; border-color: rgba(59, 130, 246, 0.25); }
-      .tag-shield { background: rgba(239, 68, 68, 0.11);  color: #B91C1C; border-color: rgba(239, 68, 68, 0.22); }
-      .tag-cloud  { background: rgba(96, 165, 250, 0.14); color: #1E40AF; border-color: rgba(96, 165, 250, 0.28); }
-      .tag-robot  { background: rgba(107, 114, 128, 0.12); color: #374151; border-color: rgba(107, 114, 128, 0.25); }
-      .tag-dna    { background: rgba(236, 72, 153, 0.12); color: #BE185D; border-color: rgba(236, 72, 153, 0.22); }
-      .tag-drone  { background: rgba(34, 197, 94, 0.12);  color: #15803D; border-color: rgba(34, 197, 94, 0.22); }
-      .tag-rocket { background: rgba(249, 115, 22, 0.12); color: #C2410C; border-color: rgba(249, 115, 22, 0.22); }
-      .tag-pill   { background: rgba(168, 85, 247, 0.12); color: #7E22CE; border-color: rgba(168, 85, 247, 0.22); }
-      .tag-leaf   { background: rgba(34, 197, 94, 0.12);  color: #166534; border-color: rgba(34, 197, 94, 0.22); }
-      .tag-wallet { background: rgba(234, 179, 8, 0.14);  color: #92400E; border-color: rgba(234, 179, 8, 0.28); }
-      .tag-calc   { background: rgba(99, 102, 241, 0.12); color: #3730A3; border-color: rgba(99, 102, 241, 0.22); }
-      .tag-chain  { background: rgba(20, 184, 166, 0.12); color: #0F766E; border-color: rgba(20, 184, 166, 0.22); }
-      .tag-cash   { background: rgba(34, 197, 94, 0.12);  color: #166534; border-color: rgba(34, 197, 94, 0.22); }
-      .tag-default { background: rgba(100, 116, 139, 0.1); color: #334155; border-color: rgba(100, 116, 139, 0.2); }
 
       .result-card h3 {
         font-size: 17px;
@@ -208,27 +163,56 @@ export class AppResults extends LitElement {
         background: var(--gray-200);
         transform: scale(0.97);
       }
+
+      :host-context(html[data-theme="dark"]) .result-card {
+        background: var(--surface-secondary, #242B3D);
+        border-color: var(--border, #2E3548);
+      }
+
+      :host-context(html[data-theme="dark"]) .date-badge {
+        background: var(--surface-secondary, #242B3D);
+        color: var(--gray-500, #9CA3AF);
+      }
+
+      :host-context(html[data-theme="dark"]) .suggestion-chip {
+        background: var(--surface-secondary, #242B3D);
+        color: var(--gray-500, #9CA3AF);
+      }
+
+      :host-context(html[data-theme="dark"]) .suggestion-chip:active {
+        background: var(--border, #2E3548);
+      }
+
+      :host-context(html[data-theme="dark"]) .tag-chip {
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+
+      :host-context(html[data-theme="dark"]) .tag-brain { background: rgba(139, 92, 246, 0.3); color: #C4B5FD; border-color: rgba(139, 92, 246, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-chart { background: rgba(59, 130, 246, 0.3); color: #93C5FD; border-color: rgba(59, 130, 246, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-shield { background: rgba(239, 68, 68, 0.3); color: #FCA5A5; border-color: rgba(239, 68, 68, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-cloud { background: rgba(96, 165, 250, 0.3); color: #BFDBFE; border-color: rgba(96, 165, 250, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-robot { background: rgba(107, 114, 128, 0.3); color: #D1D5DB; border-color: rgba(107, 114, 128, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-dna { background: rgba(236, 72, 153, 0.3); color: #FBCFE8; border-color: rgba(236, 72, 153, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-drone { background: rgba(34, 197, 94, 0.3); color: #86EFAC; border-color: rgba(34, 197, 94, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-rocket { background: rgba(249, 115, 22, 0.3); color: #FDBA74; border-color: rgba(249, 115, 22, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-pill { background: rgba(168, 85, 247, 0.3); color: #D8B4FE; border-color: rgba(168, 85, 247, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-leaf { background: rgba(34, 197, 94, 0.3); color: #86EFAC; border-color: rgba(34, 197, 94, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-wallet { background: rgba(234, 179, 8, 0.3); color: #FDE047; border-color: rgba(234, 179, 8, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-calc { background: rgba(99, 102, 241, 0.3); color: #A5B4FC; border-color: rgba(99, 102, 241, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-chain { background: rgba(20, 184, 166, 0.3); color: #5EEAD4; border-color: rgba(20, 184, 166, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-cash { background: rgba(34, 197, 94, 0.3); color: #86EFAC; border-color: rgba(34, 197, 94, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-globe { background: rgba(59, 130, 246, 0.3); color: #93C5FD; border-color: rgba(59, 130, 246, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-megaphone { background: rgba(234, 179, 8, 0.3); color: #FDE047; border-color: rgba(234, 179, 8, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-write { background: rgba(139, 92, 246, 0.3); color: #C4B5FD; border-color: rgba(139, 92, 246, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-tool { background: rgba(107, 114, 128, 0.3); color: #D1D5DB; border-color: rgba(107, 114, 128, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-city { background: rgba(59, 130, 246, 0.3); color: #93C5FD; border-color: rgba(59, 130, 246, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-default { background: rgba(100, 116, 139, 0.3); color: #CBD5E1; border-color: rgba(100, 116, 139, 0.5); }
     `,
   ];
 
   connectedCallback() {
     super.connectedCallback();
     this._loadResults();
-  }
-
-  private static readonly _TAG_EMOJI: Record<string, string> = {
-    brain: '🧠', chart: '📊', shield: '🛡️', cloud: '☁️',
-    robot: '🤖', dna: '🧬', drone: '🚁', rocket: '🚀',
-    pill: '💊', leaf: '🌿', wallet: '💳', calc: '🧮',
-    chain: '🔗', cash: '💵',
-  };
-
-  private _getTagEmoji(icon: string): string {
-    return AppResults._TAG_EMOJI[icon] ?? '🏷️';
-  }
-
-  private _getTagClass(icon: string): string {
-    return AppResults._TAG_EMOJI[icon] ? icon : 'default';
   }
 
   private _loadResults() {
@@ -267,14 +251,14 @@ export class AppResults extends LitElement {
         ${this._results.map(
           (r, i) => html`
             <div class="result-card" style="animation-delay: ${i * 0.08}s">
-              <div class="tag-chip tag-${this._getTagClass(r.icon)}">
-                <span class="tag-emoji">${this._getTagEmoji(r.icon)}</span>
+              <div class="tag-chip tag-${getTagClass(r.icon)}">
+                <span class="tag-emoji">${getTagEmoji(r.icon)}</span>
                 <span class="tag-label">${r.icon}</span>
               </div>
               <h3>${r.title}</h3>
               <p>${r.description}</p>
               <div class="meta">
-                <span class="salary">💰 ${r.avgSalary}</span>
+                <span class="salary">💰 ${formatSalary(r.avgSalary)}</span>
                 <span>📈 ${r.growthPotential}</span>
               </div>
             </div>

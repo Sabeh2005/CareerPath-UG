@@ -25,6 +25,10 @@ export class AppHeader extends LitElement {
       min-height: var(--header-height);
     }
 
+    :host-context(html[data-theme="dark"]) header {
+      background: var(--deep-blue-raw, #0B1D3A);
+    }
+
     .left {
       display: flex;
       align-items: center;

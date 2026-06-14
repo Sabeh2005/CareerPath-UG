@@ -208,6 +208,20 @@ export class AppHome extends LitElement {
       @keyframes fadeOut {
         to { opacity: 0; transform: scale(0.95); }
       }
+
+      :host-context(html[data-theme="dark"]) .feature-card {
+        background: var(--surface-secondary, #242B3D);
+        border-color: var(--border, #2E3548);
+      }
+
+      :host-context(html[data-theme="dark"]) .fc-icon.blue {
+        background: rgba(226, 232, 240, 0.1);
+      }
+
+      :host-context(html[data-theme="dark"]) .stat-item {
+        background: var(--surface-secondary, #242B3D);
+        border-color: var(--border, #2E3548);
+      }
     `,
   ];
 

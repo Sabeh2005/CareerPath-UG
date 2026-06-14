@@ -28,7 +28,7 @@ export class BottomNav extends LitElement {
       right: 0;
       z-index: 200;
       padding-bottom: env(safe-area-inset-bottom, 0px);
-      background: var(--white);
+      background: var(--surface);
       border-top: 1px solid var(--border);
       box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
     }
@@ -104,6 +104,18 @@ export class BottomNav extends LitElement {
 
     .tab.active {
       background: var(--gray-50);
+    }
+
+    :host-context(html[data-theme="dark"]) .tab.active {
+      background: var(--surface-secondary, #242B3D);
+    }
+
+    :host-context(html[data-theme="dark"]) .tab .label {
+      color: var(--gray-500, #9CA3AF);
+    }
+
+    :host-context(html[data-theme="dark"]) .tab.active .label {
+      color: var(--emerald, #00B894);
     }
   `;
 

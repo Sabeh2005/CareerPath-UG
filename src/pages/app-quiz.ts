@@ -1,6 +1,7 @@
 import { LitElement, css, html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { sharedStyles } from '../styles/shared-styles';
+import { getTagEmoji, getTagClass, formatSalary } from '../utils';
 import { getQuizState, saveQuizState, saveQuizResults } from '../store';
 import { OLEVEL_SUBJECTS, getBestMappingForSubjects } from '../mockData';
 import type { StudentLevel, ALevelTrack, CareerPath } from '../types';
@@ -225,52 +226,6 @@ export class AppQuiz extends LitElement {
         animation: slideUp 0.4s ease;
       }
 
-      .tag-chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 5px 12px 5px 8px;
-        border-radius: 20px;
-        font-size: 12px;
-        font-weight: 600;
-        letter-spacing: 0.3px;
-        margin-bottom: 12px;
-        width: fit-content;
-        border: 1.5px solid transparent;
-        backdrop-filter: blur(4px);
-        transition: transform 0.15s ease, box-shadow 0.15s ease;
-      }
-
-      .tag-chip:active {
-        transform: scale(0.96);
-      }
-
-      .tag-chip .tag-emoji {
-        font-size: 15px;
-        line-height: 1;
-      }
-
-      .tag-chip .tag-label {
-        text-transform: capitalize;
-      }
-
-      /* Tag color themes */
-      .tag-brain  { background: rgba(139, 92, 246, 0.12); color: #6D28D9; border-color: rgba(139, 92, 246, 0.25); }
-      .tag-chart  { background: rgba(59, 130, 246, 0.12); color: #1D4ED8; border-color: rgba(59, 130, 246, 0.25); }
-      .tag-shield { background: rgba(239, 68, 68, 0.11);  color: #B91C1C; border-color: rgba(239, 68, 68, 0.22); }
-      .tag-cloud  { background: rgba(96, 165, 250, 0.14); color: #1E40AF; border-color: rgba(96, 165, 250, 0.28); }
-      .tag-robot  { background: rgba(107, 114, 128, 0.12); color: #374151; border-color: rgba(107, 114, 128, 0.25); }
-      .tag-dna    { background: rgba(236, 72, 153, 0.12); color: #BE185D; border-color: rgba(236, 72, 153, 0.22); }
-      .tag-drone  { background: rgba(34, 197, 94, 0.12);  color: #15803D; border-color: rgba(34, 197, 94, 0.22); }
-      .tag-rocket { background: rgba(249, 115, 22, 0.12); color: #C2410C; border-color: rgba(249, 115, 22, 0.22); }
-      .tag-pill   { background: rgba(168, 85, 247, 0.12); color: #7E22CE; border-color: rgba(168, 85, 247, 0.22); }
-      .tag-leaf   { background: rgba(34, 197, 94, 0.12);  color: #166534; border-color: rgba(34, 197, 94, 0.22); }
-      .tag-wallet { background: rgba(234, 179, 8, 0.14);  color: #92400E; border-color: rgba(234, 179, 8, 0.28); }
-      .tag-calc   { background: rgba(99, 102, 241, 0.12); color: #3730A3; border-color: rgba(99, 102, 241, 0.22); }
-      .tag-chain  { background: rgba(20, 184, 166, 0.12); color: #0F766E; border-color: rgba(20, 184, 166, 0.22); }
-      .tag-cash   { background: rgba(34, 197, 94, 0.12);  color: #166534; border-color: rgba(34, 197, 94, 0.22); }
-      .tag-default { background: rgba(100, 116, 139, 0.1); color: #334155; border-color: rgba(100, 116, 139, 0.2); }
-
       .result-card h3 {
         font-size: 17px;
         font-weight: 700;
@@ -349,6 +304,70 @@ export class AppQuiz extends LitElement {
         color: var(--gray-500);
         font-size: 14px;
       }
+
+      :host-context(html[data-theme="dark"]) .option-btn {
+        background: var(--surface-secondary, #242B3D);
+        border-color: var(--border, #2E3548);
+      }
+
+      :host-context(html[data-theme="dark"]) .option-btn.selected {
+        border-color: var(--emerald, #00B894);
+        background: rgba(0, 184, 148, 0.1);
+      }
+
+      :host-context(html[data-theme="dark"]) .subject-chip {
+        background: var(--surface-secondary, #242B3D);
+        border-color: var(--border, #2E3548);
+      }
+
+      :host-context(html[data-theme="dark"]) .subject-chip.selected {
+        border-color: var(--emerald, #00B894);
+        background: rgba(0, 184, 148, 0.1);
+      }
+
+      :host-context(html[data-theme="dark"]) .subject-chip.selected .num {
+        background: var(--emerald, #00B894);
+        color: var(--white, #FFFFFF);
+      }
+
+      :host-context(html[data-theme="dark"]) .result-card {
+        background: var(--surface-secondary, #242B3D);
+        border-color: var(--border, #2E3548);
+      }
+
+      :host-context(html[data-theme="dark"]) .reset-btn {
+        border-color: var(--border, #2E3548);
+        color: var(--gray-500, #9CA3AF);
+      }
+
+      :host-context(html[data-theme="dark"]) .reset-btn:active {
+        background: var(--surface-secondary, #242B3D);
+      }
+
+      :host-context(html[data-theme="dark"]) .tag-chip {
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+
+      :host-context(html[data-theme="dark"]) .tag-brain { background: rgba(139, 92, 246, 0.3); color: #C4B5FD; border-color: rgba(139, 92, 246, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-chart { background: rgba(59, 130, 246, 0.3); color: #93C5FD; border-color: rgba(59, 130, 246, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-shield { background: rgba(239, 68, 68, 0.3); color: #FCA5A5; border-color: rgba(239, 68, 68, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-cloud { background: rgba(96, 165, 250, 0.3); color: #BFDBFE; border-color: rgba(96, 165, 250, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-robot { background: rgba(107, 114, 128, 0.3); color: #D1D5DB; border-color: rgba(107, 114, 128, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-dna { background: rgba(236, 72, 153, 0.3); color: #FBCFE8; border-color: rgba(236, 72, 153, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-drone { background: rgba(34, 197, 94, 0.3); color: #86EFAC; border-color: rgba(34, 197, 94, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-rocket { background: rgba(249, 115, 22, 0.3); color: #FDBA74; border-color: rgba(249, 115, 22, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-pill { background: rgba(168, 85, 247, 0.3); color: #D8B4FE; border-color: rgba(168, 85, 247, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-leaf { background: rgba(34, 197, 94, 0.3); color: #86EFAC; border-color: rgba(34, 197, 94, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-wallet { background: rgba(234, 179, 8, 0.3); color: #FDE047; border-color: rgba(234, 179, 8, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-calc { background: rgba(99, 102, 241, 0.3); color: #A5B4FC; border-color: rgba(99, 102, 241, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-chain { background: rgba(20, 184, 166, 0.3); color: #5EEAD4; border-color: rgba(20, 184, 166, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-cash { background: rgba(34, 197, 94, 0.3); color: #86EFAC; border-color: rgba(34, 197, 94, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-globe { background: rgba(59, 130, 246, 0.3); color: #93C5FD; border-color: rgba(59, 130, 246, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-megaphone { background: rgba(234, 179, 8, 0.3); color: #FDE047; border-color: rgba(234, 179, 8, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-write { background: rgba(139, 92, 246, 0.3); color: #C4B5FD; border-color: rgba(139, 92, 246, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-tool { background: rgba(107, 114, 128, 0.3); color: #D1D5DB; border-color: rgba(107, 114, 128, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-city { background: rgba(59, 130, 246, 0.3); color: #93C5FD; border-color: rgba(59, 130, 246, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-default { background: rgba(100, 116, 139, 0.3); color: #CBD5E1; border-color: rgba(100, 116, 139, 0.5); }
     `,
   ];
 
@@ -419,21 +438,6 @@ export class AppQuiz extends LitElement {
     this._computeALevelResults();
   }
 
-  private static readonly _TAG_EMOJI: Record<string, string> = {
-    brain: '🧠', chart: '📊', shield: '🛡️', cloud: '☁️',
-    robot: '🤖', dna: '🧬', drone: '🚁', rocket: '🚀',
-    pill: '💊', leaf: '🌿', wallet: '💳', calc: '🧮',
-    chain: '🔗', cash: '💵',
-  };
-
-  private _getTagEmoji(icon: string): string {
-    return AppQuiz._TAG_EMOJI[icon] ?? '🏷️';
-  }
-
-  private _getTagClass(icon: string): string {
-    return AppQuiz._TAG_EMOJI[icon] ? icon : 'default';
-  }
-
   private _computeALevelResults() {
     const track = this._alevelTrack;
     const strength = this._strength;
@@ -443,49 +447,49 @@ export class AppQuiz extends LitElement {
     if (track === 'sciences') {
       if (strength === 'data') {
         careers = [
-          { title: 'Data Scientist', description: 'Analyze complex datasets to drive business and scientific decisions.', avgSalary: '$95K-$160K', growthPotential: 'Very High', icon: '📊' },
-          { title: 'AI/Machine Learning Engineer', description: 'Build intelligent systems that learn and adapt.', avgSalary: '$110K-$170K', growthPotential: 'Very High', icon: '🧠' },
-          { title: 'Cloud Solutions Architect', description: 'Design scalable cloud infrastructure for enterprises.', avgSalary: '$120K-$180K', growthPotential: 'High', icon: '☁️' },
+          { title: 'Data Scientist', description: 'Analyze complex datasets to drive business and scientific decisions.', avgSalary: '$95K-$160K', growthPotential: 'Very High', icon: 'chart' },
+          { title: 'AI/Machine Learning Engineer', description: 'Build intelligent systems that learn and adapt.', avgSalary: '$110K-$170K', growthPotential: 'Very High', icon: 'brain' },
+          { title: 'Cloud Solutions Architect', description: 'Design scalable cloud infrastructure for enterprises.', avgSalary: '$120K-$180K', growthPotential: 'High', icon: 'cloud' },
         ];
       } else if (strength === 'creative') {
         careers = [
-          { title: 'Robotics Engineer', description: 'Design and program autonomous robotic systems.', avgSalary: '$85K-$130K', growthPotential: 'High', icon: '🤖' },
-          { title: 'IoT Solutions Architect', description: 'Build connected device ecosystems for smart environments.', avgSalary: '$100K-$160K', growthPotential: 'Very High', icon: '📡' },
-          { title: 'Hardware Design Engineer', description: 'Create electronic systems and components.', avgSalary: '$90K-$140K', growthPotential: 'Moderate', icon: '🔧' },
+          { title: 'Robotics Engineer', description: 'Design and program autonomous robotic systems.', avgSalary: '$85K-$130K', growthPotential: 'High', icon: 'robot' },
+          { title: 'IoT Solutions Architect', description: 'Build connected device ecosystems for smart environments.', avgSalary: '$100K-$160K', growthPotential: 'Very High', icon: 'wifi' },
+          { title: 'Hardware Design Engineer', description: 'Create electronic systems and components.', avgSalary: '$90K-$140K', growthPotential: 'Moderate', icon: 'chip' },
         ];
       } else {
         careers = [
-          { title: 'Cybersecurity Analyst', description: 'Protect networks and data from cyber threats.', avgSalary: '$90K-$140K', growthPotential: 'High', icon: '🛡️' },
-          { title: 'Bio-informatics Scientist', description: 'Use computation to solve biological problems.', avgSalary: '$85K-$130K', growthPotential: 'High', icon: '🧬' },
-          { title: 'Precision Agriculture Technologist', description: 'Apply tech to optimize farming and food production.', avgSalary: '$70K-$110K', growthPotential: 'High', icon: '🌱' },
+          { title: 'Cybersecurity Analyst', description: 'Protect networks and data from cyber threats.', avgSalary: '$90K-$140K', growthPotential: 'High', icon: 'shield' },
+          { title: 'Bio-informatics Scientist', description: 'Use computation to solve biological problems.', avgSalary: '$85K-$130K', growthPotential: 'High', icon: 'dna' },
+          { title: 'Precision Agriculture Technologist', description: 'Apply tech to optimize farming and food production.', avgSalary: '$70K-$110K', growthPotential: 'High', icon: 'leaf' },
         ];
       }
     } else if (track === 'arts') {
       if (strength === 'data') {
         careers = [
-          { title: 'ESG Consultant', description: 'Guide sustainability and governance strategy.', avgSalary: '$80K-$130K', growthPotential: 'Very High', icon: '🌍' },
-          { title: 'Public Policy Director', description: 'Shape organizational and government policy.', avgSalary: '$90K-$150K', growthPotential: 'Moderate', icon: '🏛️' },
-          { title: 'Geo-Spatial Data Analyst', description: 'Analyze geographic data for planning decisions.', avgSalary: '$70K-$110K', growthPotential: 'High', icon: '🗺️' },
+          { title: 'ESG Consultant', description: 'Guide sustainability and governance strategy.', avgSalary: '$80K-$130K', growthPotential: 'Very High', icon: 'globe' },
+          { title: 'Public Policy Director', description: 'Shape organizational and government policy.', avgSalary: '$90K-$150K', growthPotential: 'Moderate', icon: 'building' },
+          { title: 'Geo-Spatial Data Analyst', description: 'Analyze geographic data for planning decisions.', avgSalary: '$70K-$110K', growthPotential: 'High', icon: 'map' },
         ];
       } else {
         careers = [
-          { title: 'UX Writer', description: 'Craft user-centered content for digital products.', avgSalary: '$70K-$110K', growthPotential: 'High', icon: '✍️' },
-          { title: 'Digital Content Strategist', description: 'Plan content for global digital brands.', avgSalary: '$70K-$115K', growthPotential: 'High', icon: '📄' },
-          { title: 'Technical Writer', description: 'Document complex products for diverse audiences.', avgSalary: '$65K-$100K', growthPotential: 'Moderate', icon: '📝' },
+          { title: 'UX Writer', description: 'Craft user-centered content for digital products.', avgSalary: '$70K-$110K', growthPotential: 'High', icon: 'write' },
+          { title: 'Digital Content Strategist', description: 'Plan content for global digital brands.', avgSalary: '$70K-$115K', growthPotential: 'High', icon: 'chart' },
+          { title: 'Technical Writer', description: 'Document complex products for diverse audiences.', avgSalary: '$65K-$100K', growthPotential: 'Moderate', icon: 'write' },
         ];
       }
     } else {
       if (strength === 'data') {
         careers = [
-          { title: 'Quantitative Analyst', description: 'Build models for investment and trading.', avgSalary: '$120K-$200K', growthPotential: 'High', icon: '📈' },
-          { title: 'FinTech Product Manager', description: 'Lead digital financial product development.', avgSalary: '$100K-$160K', growthPotential: 'High', icon: '💳' },
-          { title: 'Blockchain Strategist', description: 'Design blockchain solutions for business.', avgSalary: '$110K-$180K', growthPotential: 'Very High', icon: '⛓️' },
+          { title: 'Quantitative Analyst', description: 'Build models for investment and trading.', avgSalary: '$120K-$200K', growthPotential: 'High', icon: 'calc' },
+          { title: 'FinTech Product Manager', description: 'Lead digital financial product development.', avgSalary: '$100K-$160K', growthPotential: 'High', icon: 'wallet' },
+          { title: 'Blockchain Strategist', description: 'Design blockchain solutions for business.', avgSalary: '$110K-$180K', growthPotential: 'Very High', icon: 'chain' },
         ];
       } else {
         careers = [
-          { title: 'Venture Capital Analyst', description: 'Invest in high-growth technology startups.', avgSalary: '$80K-$150K', growthPotential: 'Moderate', icon: '💰' },
-          { title: 'Digital Marketing Director', description: 'Lead data-driven marketing strategies.', avgSalary: '$100K-$170K', growthPotential: 'High', icon: '📣' },
-          { title: 'Startup Founder', description: 'Build and scale your own tech venture.', avgSalary: '$100K-$500K+', growthPotential: 'Very High', icon: '🚀' },
+          { title: 'Venture Capital Analyst', description: 'Invest in high-growth technology startups.', avgSalary: '$80K-$150K', growthPotential: 'Moderate', icon: 'cash' },
+          { title: 'Digital Marketing Director', description: 'Lead data-driven marketing strategies.', avgSalary: '$100K-$170K', growthPotential: 'High', icon: 'megaphone' },
+          { title: 'Startup Founder', description: 'Build and scale your own tech venture.', avgSalary: '$100K-$500K+', growthPotential: 'Very High', icon: 'rocket' },
         ];
       }
     }
@@ -673,14 +677,14 @@ export class AppQuiz extends LitElement {
           ${this._results.map(
             (r, i) => html`
               <div class="result-card" style="animation-delay: ${i * 0.1}s">
-                <div class="tag-chip tag-${this._getTagClass(r.icon)}">
-                  <span class="tag-emoji">${this._getTagEmoji(r.icon)}</span>
+                <div class="tag-chip tag-${getTagClass(r.icon)}">
+                  <span class="tag-emoji">${getTagEmoji(r.icon)}</span>
                   <span class="tag-label">${r.icon}</span>
                 </div>
                 <h3>${r.title}</h3>
                 <p>${r.description}</p>
                 <div class="meta">
-                  <span class="salary">💰 ${r.avgSalary}</span>
+                  <span class="salary">💰 ${formatSalary(r.avgSalary)}</span>
                   <span>📈 ${r.growthPotential}</span>
                 </div>
               </div>

@@ -2,6 +2,9 @@
   --deep-blue: #0B1D3A;
   --deep-blue-light: #162D50;
   --deep-blue-dark: #071126;
+  --deep-blue-raw: #0B1D3A;
+  --deep-blue-light-raw: #162D50;
+  --deep-blue-dark-raw: #071126;
   --emerald: #00B894;
   --emerald-light: #00D2A8;
   --emerald-dark: #009B7D;
@@ -241,6 +244,138 @@ input, select, textarea {
   background: linear-gradient(90deg, var(--emerald), var(--emerald-light));
   border-radius: 2px;
   transition: width 0.4s ease;
+}
+
+html[data-theme="dark"] {
+  /* Background & surface colors (dark) */
+  --white: #FFFFFF;
+  --surface: #1A1F2E;
+  --surface-secondary: #242B3D;
+  --border: #2E3548;
+  --gray-50: #111827;
+  --gray-100: #1A1F2E;
+  --gray-200: #242B3D;
+  --gray-300: #374151;
+  --gray-400: #6B7280;
+  --gray-500: #9CA3AF;
+  --gray-600: #D1D5DB;
+  --gray-700: #E5E7EB;
+  --gray-800: #F3F4F6;
+  --gray-900: #F9FAFB;
+
+  /* Text colors (light for contrast) */
+  --text-primary: #F3F4F6;
+  --text-secondary: #D1D5DB;
+  --text-tertiary: #9CA3AF;
+
+  /* Heading & accent text colors become light in dark mode */
+  --deep-blue: #E2E8F0;
+  --deep-blue-light: #F1F5F9;
+  --deep-blue-dark: #CBD5E1;
+
+  /* Keep raw dark blue colors unchanged for dark surfaces */
+  /* --deep-blue-raw, --deep-blue-light-raw, --deep-blue-dark-raw stay dark */
+
+  /* Keep emerald brand colors the same */
+  --emerald-glow: rgba(0, 184, 148, 0.15);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+}
+
+html[data-theme="dark"] .feature-card,
+html[data-theme="dark"] .result-card,
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .option-btn,
+html[data-theme="dark"] .subject-chip,
+html[data-theme="dark"] .combo-item,
+html[data-theme="dark"] .level-btn {
+  background: var(--surface-secondary);
+  border-color: var(--border);
+}
+
+html[data-theme="dark"] .stat-item,
+html[data-theme="dark"] .tab.active,
+html[data-theme="dark"] .back-btn,
+html[data-theme="dark"] .suggestion-chip,
+html[data-theme="dark"] .date-badge {
+  background: var(--gray-200);
+}
+
+html[data-theme="dark"] .btn-outline {
+  border-color: var(--gray-400);
+  color: var(--gray-100);
+}
+
+html[data-theme="dark"] .btn-outline:active {
+  background: var(--gray-200);
+  color: var(--white);
+}
+
+html[data-theme="dark"] .subject-chip.selected {
+  border-color: var(--emerald);
+  background: rgba(0, 184, 148, 0.1);
+}
+
+html[data-theme="dark"] .subject-chip.selected .num {
+  background: var(--emerald);
+  color: var(--white);
+}
+
+html[data-theme="dark"] .option-btn.selected {
+  border-color: var(--emerald);
+  background: rgba(0, 184, 148, 0.08);
+  box-shadow: 0 0 0 3px var(--emerald-glow);
+}
+
+html[data-theme="dark"] .option-btn .radio {
+  border-color: var(--gray-500);
+}
+
+html[data-theme="dark"] .welcome-overlay,
+html[data-theme="dark"] .hero-section {
+  background: linear-gradient(135deg, #0F172A 0%, #1A1F2E 50%, #242B3D 100%) !important;
+}
+
+html[data-theme="dark"] .welcome-screen {
+  background: linear-gradient(160deg, #080e1a 0%, #0F172A 40%, #1A1F2E 100%) !important;
+}
+
+html[data-theme="dark"] .combo-badge-large {
+  background: linear-gradient(135deg, var(--emerald-dark) 0%, var(--emerald) 100%) !important;
+}
+
+html[data-theme="dark"] .hero-icon,
+html[data-theme="dark"] img {
+  opacity: 0.9;
+}
+
+html[data-theme="dark"] .chip {
+  background: var(--gray-200);
+  color: var(--gray-100);
+}
+
+html[data-theme="dark"] .btn-secondary {
+  background: var(--deep-blue-raw);
+}
+
+html[data-theme="dark"] .btn-secondary:active {
+  background: var(--deep-blue-light-raw);
+}
+
+html[data-theme="dark"] .tag-stem { background: rgba(3, 105, 161, 0.3); color: #7DD3FC; }
+html[data-theme="dark"] .tag-business { background: rgba(146, 64, 14, 0.3); color: #FCD34D; }
+html[data-theme="dark"] .tag-humanities { background: rgba(109, 40, 217, 0.3); color: #C4B5FD; }
+html[data-theme="dark"] .tag-creative { background: rgba(190, 24, 93, 0.3); color: #FBCFE8; }
+html[data-theme="dark"] .tag-languages { background: rgba(4, 120, 87, 0.3); color: #6EE7B7; }
+html[data-theme="dark"] .tag-vocational { background: rgba(185, 28, 28, 0.3); color: #FCA5A5; }
+
+html[data-theme="dark"] .chip-selected {
+  background: var(--deep-blue-raw);
+  color: var(--white);
 }
 
 @media (min-width: 768px) {
