@@ -29,6 +29,12 @@ export const router = new Router({
       render: () => html`<app-mapper></app-mapper>`,
     },
     {
+      path: resolveRouterPath('combination/:code'),
+      title: 'Combination Details',
+      plugins: [lazy(() => import('./pages/app-combo-details.js'))],
+      render: (context: any) => html`<app-combo-details .code=${context?.params?.code}></app-combo-details>`,
+    },
+    {
       path: resolveRouterPath('results'),
       title: 'Results',
       plugins: [lazy(() => import('./pages/app-results.js'))],

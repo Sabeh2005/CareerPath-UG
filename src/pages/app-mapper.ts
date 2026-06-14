@@ -4,19 +4,17 @@ import { sharedStyles } from '../styles/shared-styles';
 import {
   OLEVEL_SUBJECTS,
   getBestMappingForSubjects,
-  getMappingForCombination,
   getCombinationByCode,
   getAllComboCodes,
 } from '../mockData';
-import type { CareerPath, Degree } from '../types';
+import type { CareerPath } from '../types';
+import { router, resolveRouterPath } from '../router';
 
 @customElement('app-mapper')
 export class AppMapper extends LitElement {
   @state() private _view: 'landing' | 'olevel' | 'alevel' = 'landing';
   @state() private _selectedSubjects: string[] = [];
-  @state() private _selectedCombo = '';
   @state() private _mappedCareers: CareerPath[] = [];
-  @state() private _mappedDegrees: Degree[] = [];
   @state() private _suggestedCombo = '';
   @state() private _showResults = false;
 
@@ -267,14 +265,13 @@ export class AppMapper extends LitElement {
         width: 100%;
       }
 
-      .combo-item:active {
-        transform: scale(0.98);
+      .combo-item:hover {
+        border-color: var(--emerald);
+        background: rgba(0, 184, 148, 0.02);
       }
 
-      .combo-item.selected {
-        border-color: var(--emerald);
-        background: rgba(0, 184, 148, 0.06);
-        box-shadow: 0 0 0 3px rgba(0, 184, 148, 0.1);
+      .combo-item:active {
+        transform: scale(0.98);
       }
 
       .combo-item .code-badge {
@@ -290,9 +287,10 @@ export class AppMapper extends LitElement {
         font-weight: 800;
         letter-spacing: 0.5px;
         flex-shrink: 0;
+        transition: background-color 0.2s ease;
       }
 
-      .combo-item.selected .code-badge {
+      .combo-item:hover .code-badge {
         background: var(--emerald);
       }
 
@@ -326,16 +324,16 @@ export class AppMapper extends LitElement {
       .cat-mixed    { background: rgba(34, 197, 94, 0.1);   color: #15803D; }
       .cat-languages{ background: rgba(239, 68, 68, 0.1);   color: #B91C1C; }
 
-      .combo-item .check-mark {
-        font-size: 18px;
-        color: var(--emerald);
+      .combo-item .chevron-arrow {
+        font-size: 20px;
+        color: var(--gray-300);
         flex-shrink: 0;
-        opacity: 0;
-        transition: opacity 0.2s ease;
+        transition: transform 0.2s ease, color 0.2s ease;
       }
 
-      .combo-item.selected .check-mark {
-        opacity: 1;
+      .combo-item:hover .chevron-arrow {
+        color: var(--emerald);
+        transform: translateX(4px);
       }
 
       .results-section {
@@ -504,29 +502,6 @@ export class AppMapper extends LitElement {
     const mapping = getBestMappingForSubjects(this._selectedSubjects);
     this._mappedCareers = mapping.careers;
     this._suggestedCombo = mapping.suggestedALevel || '';
-    this._mappedDegrees = [];
-    this._showResults = true;
-  }
-
-  private _selectCombo(code: string) {
-    if (this._selectedCombo === code) {
-      this._selectedCombo = '';
-      this._showResults = false;
-    } else {
-      this._selectedCombo = code;
-      this._computeALevelResults(code);
-    }
-  }
-
-  private _computeALevelResults(code: string) {
-    const mapping = getMappingForCombination(code);
-    if (mapping) {
-      this._mappedDegrees = mapping.degrees;
-      this._mappedCareers = mapping.careers;
-    } else {
-      this._mappedDegrees = [];
-      this._mappedCareers = [];
-    }
     this._showResults = true;
   }
 
@@ -534,9 +509,7 @@ export class AppMapper extends LitElement {
     this._view = level;
     this._showResults = false;
     this._selectedSubjects = [];
-    this._selectedCombo = '';
     this._mappedCareers = [];
-    this._mappedDegrees = [];
     this._suggestedCombo = '';
   }
 
@@ -544,9 +517,7 @@ export class AppMapper extends LitElement {
     this._view = 'landing';
     this._showResults = false;
     this._selectedSubjects = [];
-    this._selectedCombo = '';
     this._mappedCareers = [];
-    this._mappedDegrees = [];
     this._suggestedCombo = '';
   }
 
@@ -615,13 +586,6 @@ export class AppMapper extends LitElement {
         <span class="page-label">A-Level</span>
       </div>
       ${this._renderALevel()}
-      ${this._showResults ? this._renderResults() : html`
-        <div class="empty-state">
-          <div class="icon">🎓</div>
-          <h3>Select a combination</h3>
-          <p>Select your A-Level combination from the dropdown to see matching degrees and careers.</p>
-        </div>
-      `}
     `;
   }
 
@@ -666,30 +630,22 @@ export class AppMapper extends LitElement {
           code => {
             const combo = getCombinationByCode(code);
             if (!combo) return '';
-            const isSelected = this._selectedCombo === code;
             return html`
               <button
-                class="combo-item ${isSelected ? 'selected' : ''}"
-                @click=${() => this._selectCombo(code)}
+                class="combo-item"
+                @click=${() => router.navigate(resolveRouterPath('combination/' + code))}
               >
                 <span class="code-badge">${code}</span>
                 <div class="combo-info">
                   <div class="combo-name">${combo.fullName}</div>
                   <span class="combo-cat ${this._getCategoryClass(combo.category)}">${combo.category}</span>
                 </div>
-                <span class="check-mark">✓</span>
+                <span class="chevron-arrow">›</span>
               </button>
             `;
           }
         )}
       </div>
-
-      ${this._selectedCombo ? html`
-        <div class="hint" style="margin-top:16px;">
-          <span>💡</span>
-          <span>${getCombinationByCode(this._selectedCombo)?.fullName}</span>
-        </div>
-      ` : ''}
     `;
   }
 
@@ -709,25 +665,20 @@ export class AppMapper extends LitElement {
   }
 
   private _renderResults() {
-    const combo = this._view === 'olevel' ? this._suggestedCombo : this._selectedCombo;
+    const combo = this._suggestedCombo;
 
     return html`
       <div class="results-section">
         ${combo ? html`
-          <div class="combo-badge">${combo}</div>
-        ` : ''}
-
-        ${this._mappedDegrees.length > 0 ? html`
-          <div class="section-title" style="font-size:16px;margin-top:16px;">🎓 Recommended Degrees</div>
-          ${this._mappedDegrees.map(
-            d => html`
-              <div class="result-card">
-                <h3>${d.name}</h3>
-                <div class="sub">${d.university} · ${d.duration}</div>
-                <p>${d.description}</p>
-              </div>
-            `
-          )}
+          <div class="combo-badge-container" style="display: flex; align-items: center; justify-content: space-between; background: var(--gray-50); padding: 12px 16px; border-radius: var(--radius-md); border: 1px dashed var(--border); margin-bottom: 20px;">
+            <div>
+              <span style="font-size: 11px; color: var(--gray-400); display: block; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 4px;">Suggested A-Level Combination</span>
+              <span style="font-size: 15px; font-weight: 800; color: var(--deep-blue);">${getCombinationByCode(combo)?.fullName || combo}</span>
+            </div>
+            <button class="btn btn-outline" style="min-height: 38px; padding: 6px 12px; font-size: 12px; width: auto; font-weight: 700; border-radius: var(--radius-sm);" @click=${() => router.navigate(resolveRouterPath('combination/' + combo))}>
+              View Details &rarr;
+            </button>
+          </div>
         ` : ''}
 
         ${this._mappedCareers.length > 0 ? html`

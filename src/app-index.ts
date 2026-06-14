@@ -197,7 +197,11 @@ export class AppIndex extends LitElement {
       '/mapper': 'mapper',
       '/results': 'results',
     };
-    this._currentTab = tabMap[path] || 'home';
+    if (path.startsWith('/combination/')) {
+      this._currentTab = 'mapper';
+    } else {
+      this._currentTab = tabMap[path] || 'home';
+    }
   }
 
   connectedCallback() {
