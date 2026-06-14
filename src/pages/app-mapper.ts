@@ -137,34 +137,10 @@ export class AppMapper extends LitElement {
         transform: translateX(4px);
       }
 
-      /* Back navigation */
+      /* Back navigation - removed, header handles back nav */
+
       .back-bar {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 20px;
-      }
-
-      .back-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        height: 40px;
-        border-radius: 12px;
-        background: var(--gray-100);
-        border: none;
-        cursor: pointer;
-        font-size: 18px;
-        color: var(--gray-600);
-        transition: all 0.2s ease;
-        font-family: var(--font);
-        flex-shrink: 0;
-      }
-
-      .back-btn:active {
-        transform: scale(0.93);
-        background: var(--gray-200);
+        margin-bottom: 16px;
       }
 
       .back-bar .page-label {
@@ -481,11 +457,6 @@ export class AppMapper extends LitElement {
         color: var(--white, #FFFFFF);
       }
 
-      :host-context(html[data-theme="dark"]) .back-btn {
-        background: var(--surface-secondary, #242B3D);
-        color: var(--gray-500, #9CA3AF);
-      }
-
       :host-context(html[data-theme="dark"]) .combo-badge {
         background: var(--deep-blue-raw, #0B1D3A);
       }
@@ -546,17 +517,9 @@ export class AppMapper extends LitElement {
     this._suggestedCombo = '';
   }
 
-  private _backToLanding() {
-    this._view = 'landing';
-    this._showResults = false;
-    this._selectedSubjects = [];
-    this._mappedCareers = [];
-    this._suggestedCombo = '';
-  }
-
   render() {
     return html`
-      <app-header title="Subject Mapper"></app-header>
+      <app-header></app-header>
       <div class="mapper-page">
         ${this._view === 'landing' ? this._renderLanding() : ''}
         ${this._view === 'olevel' ? this._renderOLevelView() : ''}
@@ -598,7 +561,6 @@ export class AppMapper extends LitElement {
   private _renderOLevelView() {
     return html`
       <div class="back-bar">
-        <button class="back-btn" @click=${this._backToLanding}>←</button>
         <span class="page-label">O-Level</span>
       </div>
       ${this._renderOLevel()}
@@ -615,7 +577,6 @@ export class AppMapper extends LitElement {
   private _renderALevelView() {
     return html`
       <div class="back-bar">
-        <button class="back-btn" @click=${this._backToLanding}>←</button>
         <span class="page-label">A-Level</span>
       </div>
       ${this._renderALevel()}

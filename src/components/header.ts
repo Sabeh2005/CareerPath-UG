@@ -1,15 +1,16 @@
 import { LitElement, css, html } from 'lit';
-import { property, customElement, state } from 'lit/decorators.js';
+import { customElement, state } from 'lit/decorators.js';
 import { getTheme, toggleTheme } from '../utils';
 import type { Theme } from '../utils';
 
 @customElement('app-header')
 export class AppHeader extends LitElement {
-  @property({ type: String }) title = 'CareerPath UG';
-
-  @property({ type: Boolean }) enableBack = false;
-
   @state() private _theme: Theme = 'light';
+  @state() private _hidden = false;
+
+  private _lastScrollY = 0;
+  private _scrollThreshold = 10;
+  private _onScroll = () => this._handleScroll();
 
   static styles = css`
     :host {
@@ -23,20 +24,48 @@ export class AppHeader extends LitElement {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 16px;
+      padding: 10px 16px;
       background: var(--deep-blue);
       color: var(--white);
       min-height: var(--header-height);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    header.hidden {
+      transform: translateY(-100%);
     }
 
     :host-context(html[data-theme="dark"]) header {
       background: var(--deep-blue-raw, #0B1D3A);
     }
 
+    /* Left: back button only */
     .left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      flex: 1;
+    }
+
+    /* Center: logo + title */
+    .center {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    header.hidden .center {
+      transform: translateX(-50%);
+    }
+
+    /* Right: theme toggle */
+    .right {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      justify-content: flex-end;
     }
 
     .back-btn {
@@ -52,16 +81,19 @@ export class AppHeader extends LitElement {
       cursor: pointer;
       border: none;
       transition: background 0.2s;
+      -webkit-tap-highlight-color: transparent;
+      flex-shrink: 0;
     }
 
     .back-btn:active {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.25);
     }
 
     h1 {
       font-size: 18px;
       font-weight: 700;
       letter-spacing: -0.3px;
+      white-space: nowrap;
     }
 
     .logo {
@@ -75,6 +107,7 @@ export class AppHeader extends LitElement {
       font-size: 14px;
       font-weight: 800;
       color: var(--white);
+      flex-shrink: 0;
     }
 
     /* Theme toggle pill */
@@ -131,27 +164,63 @@ export class AppHeader extends LitElement {
     }
   `;
 
+  connectedCallback() {
+    super.connectedCallback();
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    window.removeEventListener('scroll', this._onScroll);
+  }
+
   firstUpdated() {
     this._theme = getTheme();
+    this._lastScrollY = window.scrollY;
+  }
+
+  private _handleScroll() {
+    const currentScrollY = window.scrollY;
+    const diff = currentScrollY - this._lastScrollY;
+
+    if (diff > this._scrollThreshold && !this._hidden) {
+      this._hidden = true;
+    } else if (diff < -this._scrollThreshold && this._hidden) {
+      this._hidden = false;
+    }
+
+    // Always show header when at the very top of the page
+    if (currentScrollY < 10) {
+      this._hidden = false;
+    }
+
+    this._lastScrollY = currentScrollY;
   }
 
   render() {
     return html`
-      <header>
+      <header class="${this._hidden ? 'hidden' : ''}">
         <div class="left">
-          ${this.enableBack
-            ? html`<button class="back-btn" @click=${this._goBack}>&larr;</button>`
-            : html`<div class="logo">CP</div>`}
-          <h1>${this.title}</h1>
+          <button class="back-btn" @click=${this._goBack} aria-label="Go back">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
         </div>
-        <button class="theme-toggle" @click=${this._handleThemeToggle} aria-label="Toggle theme">
-          <span class="toggle-option ${this._theme === 'light' ? 'active' : ''}">
-            <span class="icon-sun">☀️</span>
-          </span>
-          <span class="toggle-option ${this._theme === 'dark' ? 'active' : ''}">
-            <span class="icon-moon">🌙</span>
-          </span>
-        </button>
+        <div class="center">
+          <div class="logo">CP</div>
+          <h1>CareerPath UG</h1>
+        </div>
+        <div class="right">
+          <button class="theme-toggle" @click=${this._handleThemeToggle} aria-label="Toggle theme">
+            <span class="toggle-option ${this._theme === 'light' ? 'active' : ''}">
+              <span class="icon-sun">☀️</span>
+            </span>
+            <span class="toggle-option ${this._theme === 'dark' ? 'active' : ''}">
+              <span class="icon-moon">🌙</span>
+            </span>
+          </button>
+        </div>
       </header>
     `;
   }

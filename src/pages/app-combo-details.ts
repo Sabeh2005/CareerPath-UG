@@ -227,22 +227,20 @@ export class AppComboDetails extends LitElement {
 
     if (!combo || !mapping) {
       return html`
-        <app-header title="Not Found" .enableBack=${true}></app-header>
+        <app-header></app-header>
         <div class="details-page">
           <div class="empty-state">
             <div class="icon">🔍</div>
             <h3>Combination Not Found</h3>
             <p>We couldn't find matching information for the combination code "${this.code}".</p>
-            <button class="btn btn-primary" @click=${() => history.back()}>
-              Go Back
-            </button>
+            <p style="color: var(--gray-500); font-size: 13px;">Use the back button above to return.</p>
           </div>
         </div>
       `;
     }
 
     return html`
-      <app-header title="Combination Details" .enableBack=${true}></app-header>
+      <app-header></app-header>
       <div class="details-page">
         <!-- Hero Card -->
         <div class="hero-section">
