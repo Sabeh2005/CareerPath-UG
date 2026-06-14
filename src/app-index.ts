@@ -186,7 +186,6 @@ export class AppIndex extends LitElement {
       } else {
         this.requestUpdate();
       }
-      this._updateActiveTab();
     });
 
     this._updateActiveTab();
@@ -209,6 +208,10 @@ export class AppIndex extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
+
+    window.addEventListener('popstate', () => {
+      this._updateActiveTab();
+    });
     
     window.addEventListener('beforeinstallprompt' as any, (e: any) => {
       e.preventDefault();
@@ -242,7 +245,8 @@ export class AppIndex extends LitElement {
   }
 
   private _handleNavChange(e: CustomEvent) {
-    const { path } = e.detail;
+    const { tab, path } = e.detail;
+    this._currentTab = tab;
     router.navigate(path);
   }
 
