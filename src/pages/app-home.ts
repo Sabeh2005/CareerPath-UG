@@ -3,11 +3,14 @@ import { customElement, state } from 'lit/decorators.js';
 import { sharedStyles } from '../styles/shared-styles';
 import { hasSeenWelcome, markWelcomeSeen } from '../store';
 import { router, resolveRouterPath } from '../router';
+import { getTheme, toggleTheme } from '../utils';
+import type { Theme } from '../utils';
 
 @customElement('app-home')
 export class AppHome extends LitElement {
   @state() private _showWelcome = false;
   @state() private _dismissed = false;
+  @state() private _theme: Theme = 'light';
 
   static styles = [
     sharedStyles,
@@ -222,6 +225,61 @@ export class AppHome extends LitElement {
         background: var(--surface-secondary, #242B3D);
         border-color: var(--border, #2E3548);
       }
+
+      /* Theme toggle */
+      .home-top-bar {
+        display: flex;
+        justify-content: flex-end;
+        padding: 12px 16px 0;
+      }
+
+      .theme-toggle {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px;
+        border-radius: 20px;
+        background: var(--gray-100);
+        border: 1px solid var(--border);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      :host-context(html[data-theme="dark"]) .theme-toggle {
+        background: var(--surface-secondary, #242B3D);
+        border-color: var(--border, #2E3548);
+      }
+
+      .theme-toggle:active {
+        transform: scale(0.95);
+      }
+
+      .toggle-option {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        font-size: 15px;
+        z-index: 1;
+        transition: all 0.3s ease;
+      }
+
+      .toggle-option.active {
+        background: var(--white);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+      }
+
+      :host-context(html[data-theme="dark"]) .toggle-option.active {
+        background: var(--surface, #1A1F2E);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      }
+
+      .toggle-option:not(.active) {
+        opacity: 0.4;
+      }
     `,
   ];
 
@@ -230,6 +288,14 @@ export class AppHome extends LitElement {
     if (!hasSeenWelcome()) {
       this._showWelcome = true;
     }
+  }
+
+  firstUpdated() {
+    this._theme = getTheme();
+  }
+
+  private _handleThemeToggle() {
+    this._theme = toggleTheme();
   }
 
   private _dismissWelcome() {
@@ -258,6 +324,16 @@ export class AppHome extends LitElement {
             </div>
           `
         : html`
+            <div class="home-top-bar">
+              <button class="theme-toggle" @click=${this._handleThemeToggle} aria-label="Toggle theme">
+                <span class="toggle-option ${this._theme === 'light' ? 'active' : ''}">
+                  ☀️
+                </span>
+                <span class="toggle-option ${this._theme === 'dark' ? 'active' : ''}">
+                  🌙
+                </span>
+              </button>
+            </div>
             <div class="home-content">
               <div class="hero">
                 <img class="hero-icon" src="/assets/icons/512x512.png" alt="CareerPath UG" />

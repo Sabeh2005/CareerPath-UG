@@ -6,15 +6,13 @@ import './components/header';
 import './components/bottom-nav';
 import './styles/global.css';
 import { router, resolveRouterPath } from './router';
-import { getTheme, setTheme, toggleTheme } from './utils';
-import type { Theme } from './utils';
+import { getTheme, setTheme } from './utils';
 
 @customElement('app-index')
 export class AppIndex extends LitElement {
   @state() private _currentTab = 'home';
   @state() private _deferredPrompt: any = null;
   @state() private _showInstallPrompt = false;
-  @state() private _theme: Theme = 'light';
 
   static styles = css`
     :host {
@@ -177,43 +175,10 @@ export class AppIndex extends LitElement {
     .ip-btn-later:active {
       color: var(--white);
     }
-
-    .theme-toggle {
-      position: fixed;
-      top: 12px;
-      right: 16px;
-      z-index: 300;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--deep-blue);
-      color: var(--white);
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
-      transition: all 0.2s ease;
-      padding: 0;
-      line-height: 1;
-    }
-
-    .theme-toggle:active {
-      transform: scale(0.92);
-    }
-
-    @media (min-width: 768px) {
-      .theme-toggle {
-        right: calc(50% - 240px + 16px);
-      }
-    }
   `;
 
   firstUpdated() {
-    this._theme = getTheme();
-    setTheme(this._theme);
+    setTheme(getTheme());
 
     router.addEventListener('route-changed', () => {
       if ('startViewTransition' in document) {
@@ -281,17 +246,8 @@ export class AppIndex extends LitElement {
     router.navigate(path);
   }
 
-  private _handleThemeToggle() {
-    this._theme = toggleTheme();
-    this.requestUpdate();
-  }
-
   render() {
     return html`
-      <button class="theme-toggle" @click=${this._handleThemeToggle} aria-label="Toggle theme">
-        ${this._theme === 'dark' ? '☀️' : '🌙'}
-      </button>
-
       <div class="content">
         ${router.render()}
       </div>
