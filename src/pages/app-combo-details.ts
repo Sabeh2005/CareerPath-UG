@@ -3,6 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { sharedStyles } from '../styles/shared-styles';
 import { getTagEmoji, getTagClass, formatSalary } from '../utils';
 import { getCombinationByCode, getMappingForCombination } from '../mockData';
+import { router, resolveRouterPath } from '../router';
 
 @customElement('app-combo-details')
 export class AppComboDetails extends LitElement {
@@ -233,7 +234,9 @@ export class AppComboDetails extends LitElement {
             <div class="icon">🔍</div>
             <h3>Combination Not Found</h3>
             <p>We couldn't find matching information for the combination code "${this.code}".</p>
-            <p style="color: var(--gray-500); font-size: 13px;">Use the back button above to return.</p>
+            <button class="btn-primary" style="margin-top: 16px;" @click=${() => router.navigate(resolveRouterPath('mapper'))}>
+              Go to Mapper 🗺️
+            </button>
           </div>
         </div>
       `;

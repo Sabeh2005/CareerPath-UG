@@ -3,7 +3,7 @@ import type { QuizState, MapperState, CareerPath } from './types';
 const QUIZ_KEY = 'careerpath_quiz';
 const QUIZ_RESULTS_KEY = 'careerpath_quiz_results';
 const WELCOME_KEY = 'careerpath_welcome_seen';
-const MAPPER_KEY = 'careerpath_mapper';
+export const MAPPER_KEY = 'careerpath_mapper';
 
 function safeGet<T>(key: string, fallback: T): T {
   try {

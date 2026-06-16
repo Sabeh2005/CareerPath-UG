@@ -2,7 +2,7 @@ import { LitElement, css, html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { sharedStyles } from '../styles/shared-styles';
 import { getTagEmoji, getTagClass, formatSalary } from '../utils';
-import { getQuizState, saveQuizState, saveQuizResults } from '../store';
+import { getQuizState, saveQuizState, saveQuizResults, clearQuiz } from '../store';
 import { OLEVEL_SUBJECTS, getBestMappingForSubjects } from '../mockData';
 import type { StudentLevel, ALevelTrack, CareerPath } from '../types';
 
@@ -509,8 +509,7 @@ export class AppQuiz extends LitElement {
     this._strength = null;
     this._results = [];
     this._completed = false;
-    localStorage.removeItem('careerpath_quiz');
-    localStorage.removeItem('careerpath_quiz_results');
+    clearQuiz();
     this.requestUpdate();
   }
 

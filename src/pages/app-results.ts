@@ -3,6 +3,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { sharedStyles } from '../styles/shared-styles';
 import { getTagEmoji, getTagClass, formatSalary } from '../utils';
 import { getQuizResults, clearQuiz } from '../store';
+import { router, resolveRouterPath } from '../router';
 import type { CareerPath } from '../types';
 
 @customElement('app-results')
@@ -283,10 +284,10 @@ export class AppResults extends LitElement {
           Take the Career Match Quiz to discover modern, high-earning careers that match your subjects and interests.
         </p>
         <div class="suggestion-chips">
-          <button class="suggestion-chip" @click=${() => window.location.href = '/quiz'}>
+          <button class="suggestion-chip" @click=${() => router.navigate(resolveRouterPath('quiz'))}>
             Take the Quiz 🎯
           </button>
-          <button class="suggestion-chip" @click=${() => window.location.href = '/mapper'}>
+          <button class="suggestion-chip" @click=${() => router.navigate(resolveRouterPath('mapper'))}>
             Explore Mapper 🗺️
           </button>
         </div>

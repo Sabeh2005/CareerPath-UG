@@ -226,7 +226,14 @@ export class AppHeader extends LitElement {
   }
 
   private _goBack() {
-    history.back();
+    if (window.history.length > 1) {
+      history.back();
+    } else {
+      this.dispatchEvent(new CustomEvent('navigate-home', {
+        bubbles: true,
+        composed: true,
+      }));
+    }
   }
 
   private _handleThemeToggle() {

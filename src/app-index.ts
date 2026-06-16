@@ -192,17 +192,18 @@ export class AppIndex extends LitElement {
   }
 
   private _updateActiveTab() {
-    const path = window.location.pathname.replace(resolveRouterPath(), '') || '/';
+    const path = window.location.pathname.replace(resolveRouterPath(), '');
+    const normalized = path.replace(/^\/+/, '');
     const tabMap: Record<string, string> = {
-      '/': 'home',
-      '/quiz': 'quiz',
-      '/mapper': 'mapper',
-      '/results': 'results',
+      '': 'home',
+      'quiz': 'quiz',
+      'mapper': 'mapper',
+      'results': 'results',
     };
-    if (path.startsWith('/combination/')) {
+    if (normalized.startsWith('combination/')) {
       this._currentTab = 'mapper';
     } else {
-      this._currentTab = tabMap[path] || 'home';
+      this._currentTab = tabMap[normalized] || 'home';
     }
   }
 
@@ -213,6 +214,10 @@ export class AppIndex extends LitElement {
       this._updateActiveTab();
     });
     
+    this.addEventListener('navigate-home', () => {
+      router.navigate(resolveRouterPath());
+    });
+
     window.addEventListener('beforeinstallprompt' as any, (e: any) => {
       e.preventDefault();
       this._deferredPrompt = e;

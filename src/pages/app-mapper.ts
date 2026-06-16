@@ -10,6 +10,7 @@ import {
 } from '../mockData';
 import type { CareerPath } from '../types';
 import { router, resolveRouterPath } from '../router';
+import { getMapperState, saveMapperState, MAPPER_KEY } from '../store';
 
 @customElement('app-mapper')
 export class AppMapper extends LitElement {
@@ -18,6 +19,20 @@ export class AppMapper extends LitElement {
   @state() private _mappedCareers: CareerPath[] = [];
   @state() private _suggestedCombo = '';
   @state() private _showResults = false;
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (localStorage.getItem(MAPPER_KEY)) {
+      const saved = getMapperState();
+      this._view = saved.mode;
+      if (saved.mode === 'olevel' && saved.olevelSubjects.length > 0) {
+        this._selectedSubjects = saved.olevelSubjects;
+        if (this._selectedSubjects.length === 3) {
+          this._computeOLevelResults();
+        }
+      }
+    }
+  }
 
   static styles = [
     sharedStyles,
@@ -494,6 +509,7 @@ export class AppMapper extends LitElement {
     } else if (this._selectedSubjects.length < 3) {
       this._selectedSubjects = [...this._selectedSubjects, id];
     }
+    saveMapperState({ mode: 'olevel', olevelSubjects: this._selectedSubjects, selectedCombo: '' });
     if (this._selectedSubjects.length === 3) {
       this._computeOLevelResults();
     } else {
@@ -515,6 +531,7 @@ export class AppMapper extends LitElement {
     this._selectedSubjects = [];
     this._mappedCareers = [];
     this._suggestedCombo = '';
+    saveMapperState({ mode: level, olevelSubjects: [], selectedCombo: '' });
   }
 
   render() {
