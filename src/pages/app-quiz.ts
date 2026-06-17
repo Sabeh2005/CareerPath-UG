@@ -373,6 +373,8 @@ export class AppQuiz extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
     const saved = getQuizState();
     if (saved.completed && saved.results) {
       this._step = saved.step;

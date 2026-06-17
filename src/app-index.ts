@@ -180,21 +180,29 @@ export class AppIndex extends LitElement {
   firstUpdated() {
     setTheme(getTheme());
 
+    // Prevent browser from auto-restoring scroll position on navigation
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+
+    const scrollToTop = () => {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    };
+
     router.addEventListener('route-changed', () => {
       if ('startViewTransition' in document) {
         (document as any).startViewTransition(() => {
           this._updateActiveTab();
           this.requestUpdate();
-          requestAnimationFrame(() => {
-            window.scrollTo(0, 0);
-          });
+          // Scroll inside the callback so it takes effect BEFORE
+          // the browser captures the new-page screenshot
+          scrollToTop();
         });
       } else {
         this._updateActiveTab();
         this.requestUpdate();
-        requestAnimationFrame(() => {
-          window.scrollTo(0, 0);
-        });
+        scrollToTop();
       }
     });
 

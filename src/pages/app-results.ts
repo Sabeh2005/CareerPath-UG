@@ -214,6 +214,8 @@ export class AppResults extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     this._loadResults();
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   }
 
   private _loadResults() {

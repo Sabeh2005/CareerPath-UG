@@ -22,6 +22,8 @@ export class AppMapper extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
     if (localStorage.getItem(MAPPER_KEY)) {
       const saved = getMapperState();
       this._view = saved.mode;

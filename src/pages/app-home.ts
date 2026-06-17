@@ -292,6 +292,8 @@ export class AppHome extends LitElement {
 
   firstUpdated() {
     this._theme = getTheme();
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   }
 
   private _handleThemeToggle() {

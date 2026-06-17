@@ -9,6 +9,12 @@ import { router, resolveRouterPath } from '../router';
 export class AppComboDetails extends LitElement {
   @property({ type: String }) code = '';
 
+  firstUpdated() {
+    // Ensure page always starts at the top when this component renders
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }
+
   static styles = [
     sharedStyles,
     css`
