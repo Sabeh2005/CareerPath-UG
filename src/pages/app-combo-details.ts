@@ -220,6 +220,43 @@ export class AppComboDetails extends LitElement {
       :host-context(html[data-theme="dark"]) .tag-tool { background: rgba(107, 114, 128, 0.3); color: #D1D5DB; border-color: rgba(107, 114, 128, 0.5); }
       :host-context(html[data-theme="dark"]) .tag-city { background: rgba(59, 130, 246, 0.3); color: #93C5FD; border-color: rgba(59, 130, 246, 0.5); }
       :host-context(html[data-theme="dark"]) .tag-default { background: rgba(100, 116, 139, 0.3); color: #CBD5E1; border-color: rgba(100, 116, 139, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-gavel { background: rgba(168, 85, 247, 0.3); color: #D8B4FE; border-color: rgba(168, 85, 247, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-folder { background: rgba(234, 179, 8, 0.3); color: #FDE047; border-color: rgba(234, 179, 8, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-satellite { background: rgba(59, 130, 246, 0.3); color: #93C5FD; border-color: rgba(59, 130, 246, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-thermometer { background: rgba(249, 115, 22, 0.3); color: #FDBA74; border-color: rgba(249, 115, 22, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-museum { background: rgba(107, 114, 128, 0.3); color: #D1D5DB; border-color: rgba(107, 114, 128, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-wifi { background: rgba(96, 165, 250, 0.3); color: #BFDBFE; border-color: rgba(96, 165, 250, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-blueprint { background: rgba(59, 130, 246, 0.3); color: #93C5FD; border-color: rgba(59, 130, 246, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-chip { background: rgba(99, 102, 241, 0.3); color: #A5B4FC; border-color: rgba(99, 102, 241, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-palette { background: rgba(236, 72, 153, 0.3); color: #FBCFE8; border-color: rgba(236, 72, 153, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-vr { background: rgba(139, 92, 246, 0.3); color: #C4B5FD; border-color: rgba(139, 92, 246, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-film { background: rgba(168, 85, 247, 0.3); color: #D8B4FE; border-color: rgba(168, 85, 247, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-gamepad { background: rgba(20, 184, 166, 0.3); color: #5EEAD4; border-color: rgba(20, 184, 166, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-droplet { background: rgba(59, 130, 246, 0.3); color: #93C5FD; border-color: rgba(59, 130, 246, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-camera { background: rgba(107, 114, 128, 0.3); color: #D1D5DB; border-color: rgba(107, 114, 128, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-flask { background: rgba(139, 92, 246, 0.3); color: #C4B5FD; border-color: rgba(139, 92, 246, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-check { background: rgba(34, 197, 94, 0.3); color: #86EFAC; border-color: rgba(34, 197, 94, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-truck { background: rgba(249, 115, 22, 0.3); color: #FDBA74; border-color: rgba(249, 115, 22, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-heart { background: rgba(239, 68, 68, 0.3); color: #FCA5A5; border-color: rgba(239, 68, 68, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-tree { background: rgba(34, 197, 94, 0.3); color: #86EFAC; border-color: rgba(34, 197, 94, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-water { background: rgba(59, 130, 246, 0.3); color: #93C5FD; border-color: rgba(59, 130, 246, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-sun { background: rgba(234, 179, 8, 0.3); color: #FDE047; border-color: rgba(234, 179, 8, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-phone { background: rgba(99, 102, 241, 0.3); color: #A5B4FC; border-color: rgba(99, 102, 241, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-handshake { background: rgba(20, 184, 166, 0.3); color: #5EEAD4; border-color: rgba(20, 184, 166, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-search { background: rgba(100, 116, 139, 0.3); color: #CBD5E1; border-color: rgba(100, 116, 139, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-building { background: rgba(107, 114, 128, 0.3); color: #D1D5DB; border-color: rgba(107, 114, 128, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-recycle { background: rgba(34, 197, 94, 0.3); color: #86EFAC; border-color: rgba(34, 197, 94, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-map { background: rgba(59, 130, 246, 0.3); color: #93C5FD; border-color: rgba(59, 130, 246, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-light { background: rgba(234, 179, 8, 0.3); color: #FDE047; border-color: rgba(234, 179, 8, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-mic { background: rgba(239, 68, 68, 0.3); color: #FCA5A5; border-color: rgba(239, 68, 68, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-ai { background: rgba(139, 92, 246, 0.3); color: #C4B5FD; border-color: rgba(139, 92, 246, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-code { background: rgba(99, 102, 241, 0.3); color: #A5B4FC; border-color: rgba(99, 102, 241, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-database { background: rgba(168, 85, 247, 0.3); color: #D8B4FE; border-color: rgba(168, 85, 247, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-clipboard { background: rgba(107, 114, 128, 0.3); color: #D1D5DB; border-color: rgba(107, 114, 128, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-bolt { background: rgba(234, 179, 8, 0.3); color: #FDE047; border-color: rgba(234, 179, 8, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-plus { background: rgba(239, 68, 68, 0.3); color: #FCA5A5; border-color: rgba(239, 68, 68, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-scan { background: rgba(96, 165, 250, 0.3); color: #BFDBFE; border-color: rgba(96, 165, 250, 0.5); }
+      :host-context(html[data-theme="dark"]) .tag-video { background: rgba(168, 85, 247, 0.3); color: #D8B4FE; border-color: rgba(168, 85, 247, 0.5); }
     `,
   ];
 
