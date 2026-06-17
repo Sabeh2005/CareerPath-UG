@@ -167,6 +167,9 @@ export class AppHeader extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     window.addEventListener('scroll', this._onScroll, { passive: true });
+    // Reset scroll state when component connects (e.g., on page navigation)
+    this._lastScrollY = 0;
+    this._hidden = false;
   }
 
   disconnectedCallback() {
@@ -226,13 +229,24 @@ export class AppHeader extends LitElement {
   }
 
   private _goBack() {
-    if (window.history.length > 1) {
-      history.back();
-    } else {
-      this.dispatchEvent(new CustomEvent('navigate-home', {
-        bubbles: true,
-        composed: true,
-      }));
+    // Check if we're on a page with internal sub-views (like mapper)
+    const mapperBackEvent = new CustomEvent('mapper-back', {
+      bubbles: true,
+      composed: true,
+      cancelable: true,
+    });
+    const handled = !this.dispatchEvent(mapperBackEvent);
+    
+    // If the event was not prevented, use browser history
+    if (!handled) {
+      if (window.history.length > 1) {
+        history.back();
+      } else {
+        this.dispatchEvent(new CustomEvent('navigate-home', {
+          bubbles: true,
+          composed: true,
+        }));
+      }
     }
   }
 

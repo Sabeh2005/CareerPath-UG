@@ -182,9 +182,19 @@ export class AppIndex extends LitElement {
 
     router.addEventListener('route-changed', () => {
       if ('startViewTransition' in document) {
-        (document as any).startViewTransition(() => this.requestUpdate());
+        (document as any).startViewTransition(() => {
+          this._updateActiveTab();
+          this.requestUpdate();
+          requestAnimationFrame(() => {
+            window.scrollTo(0, 0);
+          });
+        });
       } else {
+        this._updateActiveTab();
         this.requestUpdate();
+        requestAnimationFrame(() => {
+          window.scrollTo(0, 0);
+        });
       }
     });
 

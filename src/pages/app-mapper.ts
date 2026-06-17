@@ -32,7 +32,28 @@ export class AppMapper extends LitElement {
         }
       }
     }
+
+    // Listen for back button press from header
+    this.addEventListener('mapper-back', this._handleBackButton as EventListener);
   }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.removeEventListener('mapper-back', this._handleBackButton as EventListener);
+  }
+
+  private _handleBackButton = (e: CustomEvent) => {
+    // If we're in a sub-view (not landing), go back to landing and prevent default
+    if (this._view !== 'landing') {
+      e.preventDefault();
+      this._view = 'landing';
+      this._showResults = false;
+      this._selectedSubjects = [];
+      this._mappedCareers = [];
+      this._suggestedCombo = '';
+      saveMapperState({ mode: 'landing', olevelSubjects: [], selectedCombo: '' });
+    }
+  };
 
   static styles = [
     sharedStyles,

@@ -61,7 +61,7 @@ export interface QuizState {
 }
 
 export interface MapperState {
-  mode: 'olevel' | 'alevel';
+  mode: 'landing' | 'olevel' | 'alevel';
   olevelSubjects: string[];
   selectedCombo: string;
 }
