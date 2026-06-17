@@ -82,9 +82,13 @@ export class AppIndex extends LitElement {
 
     .install-prompt {
       position: fixed;
-      bottom: 88px;
-      left: 16px;
-      right: 16px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      right: auto;
+      bottom: auto;
+      width: calc(100% - 32px);
+      max-width: 400px;
       background: var(--surface);
       backdrop-filter: blur(10px);
       border: 1px solid var(--border);
@@ -95,15 +99,17 @@ export class AppIndex extends LitElement {
       display: flex;
       flex-direction: column;
       gap: 12px;
-      animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: promptAppear 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes promptAppear {
+      from { opacity: 0; transform: translate(-50%, -50%) scale(0.92); }
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
     }
 
     @media (min-width: 768px) {
       .install-prompt {
-        max-width: 400px;
-        left: auto;
-        right: 24px;
-        bottom: 24px;
+        width: 400px;
       }
     }
 
