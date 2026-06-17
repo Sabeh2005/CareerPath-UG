@@ -23,7 +23,7 @@ export class AppHome extends LitElement {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(160deg, #071126 0%, #0B1D3A 40%, #162D50 100%);
+        background: linear-gradient(160deg, #FFFFFF 0%, #F8FAFC 40%, #E2E8F0 100%);
         padding: 32px;
         text-align: center;
         animation: fadeIn 0.6s ease;
@@ -42,7 +42,7 @@ export class AppHome extends LitElement {
       }
 
       .welcome-screen h1 {
-        color: var(--white);
+        color: var(--deep-blue-raw);
         font-size: 32px;
         font-weight: 800;
         letter-spacing: -0.5px;
@@ -51,7 +51,7 @@ export class AppHome extends LitElement {
       }
 
       .welcome-screen .subtitle {
-        color: rgba(255, 255, 255, 0.65);
+        color: var(--gray-600);
         font-size: 16px;
         line-height: 1.6;
         max-width: 300px;
@@ -68,7 +68,7 @@ export class AppHome extends LitElement {
         font-weight: 700;
         cursor: pointer;
         transition: all 0.3s ease;
-        box-shadow: 0 8px 30px rgba(0, 184, 148, 0.4);
+        box-shadow: 0 8px 30px rgba(0, 184, 148, 0.3);
         min-width: 240px;
       }
 

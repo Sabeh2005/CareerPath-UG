@@ -11,10 +11,10 @@
     content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=no" />
   <meta name="description" content="Map your subjects to modern, high-earning careers. Career guidance for O-Level and A-Level students in Uganda." />
 
-  <meta name="theme-color" content="#0B1D3A" />
+  <meta name="theme-color" content="#FFFFFF" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="CareerPath UG" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="mobile-web-app-capable" content="yes">
 
   <link rel="icon" href="/assets/icons/icon_192.png?v=2" type="image/png" />
@@ -29,7 +29,7 @@
     (function() {
       var theme = localStorage.getItem('careerpath_theme');
       if (theme !== 'light' && theme !== 'dark') {
-        theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        theme = 'light';
       }
       document.documentElement.setAttribute('data-theme', theme);
     })();

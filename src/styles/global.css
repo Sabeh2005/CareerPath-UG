@@ -344,6 +344,14 @@ html[data-theme="dark"] .welcome-screen {
   background: linear-gradient(160deg, #080e1a 0%, #0F172A 40%, #1A1F2E 100%) !important;
 }
 
+html[data-theme="dark"] .welcome-screen h1 {
+  color: var(--white) !important;
+}
+
+html[data-theme="dark"] .welcome-screen .subtitle {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
 html[data-theme="dark"] .combo-badge-large {
   background: linear-gradient(135deg, var(--emerald-dark) 0%, var(--emerald) 100%) !important;
 }

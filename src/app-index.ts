@@ -85,9 +85,9 @@ export class AppIndex extends LitElement {
       bottom: 88px;
       left: 16px;
       right: 16px;
-      background: rgba(11, 29, 58, 0.95);
+      background: var(--surface);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       padding: 16px;
       box-shadow: var(--shadow-xl);
@@ -121,20 +121,20 @@ export class AppIndex extends LitElement {
     }
 
     .ip-title-group h3 {
-      color: var(--white);
+      color: var(--text-primary);
       font-size: 16px;
       font-weight: 700;
       margin: 0;
     }
 
     .ip-title-group p {
-      color: rgba(255, 255, 255, 0.6);
+      color: var(--text-secondary);
       font-size: 12px;
       margin: 0;
     }
 
     .ip-description {
-      color: rgba(255, 255, 255, 0.85);
+      color: var(--text-secondary);
       font-size: 13px;
       line-height: 1.4;
       margin: 0;
@@ -168,12 +168,12 @@ export class AppIndex extends LitElement {
 
     .ip-btn-later {
       background: transparent;
-      color: rgba(255, 255, 255, 0.6);
+      color: var(--text-secondary);
       border: none;
     }
 
     .ip-btn-later:active {
-      color: var(--white);
+      color: var(--text-primary);
     }
   `;
 
