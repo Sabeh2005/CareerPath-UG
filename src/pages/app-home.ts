@@ -361,7 +361,7 @@ export class AppHome extends LitElement {
 
               <div class="stats">
                 <div class="stat-item">
-                  <div class="number">50+</div>
+                  <div class="number">49</div>
                   <div class="label">A-Level Combos</div>
                 </div>
                 <div class="stat-item">
@@ -369,7 +369,7 @@ export class AppHome extends LitElement {
                   <div class="label">O-Level Subjects</div>
                 </div>
                 <div class="stat-item">
-                  <div class="number">40+</div>
+                  <div class="number">240</div>
                   <div class="label">Modern Careers</div>
                 </div>
                 <div class="stat-item">
