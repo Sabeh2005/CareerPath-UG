@@ -303,6 +303,7 @@ export class AppHome extends LitElement {
   private _dismissWelcome() {
     this._dismissed = true;
     markWelcomeSeen();
+    this.dispatchEvent(new CustomEvent('welcome-dismissed', { bubbles: true, composed: true }));
     setTimeout(() => {
       this._showWelcome = false;
       this._dismissed = false;

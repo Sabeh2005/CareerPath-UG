@@ -7,6 +7,7 @@ import './components/bottom-nav';
 import './styles/global.css';
 import { router, resolveRouterPath } from './router';
 import { getTheme, setTheme } from './utils';
+import { hasSeenWelcome } from './store';
 
 @customElement('app-index')
 export class AppIndex extends LitElement {
@@ -242,12 +243,19 @@ export class AppIndex extends LitElement {
       router.navigate(resolveRouterPath());
     });
 
+    this.addEventListener('welcome-dismissed', () => {
+      const dismissed = sessionStorage.getItem('pwa-prompt-dismissed');
+      if (!dismissed && this._deferredPrompt) {
+        this._showInstallPrompt = true;
+      }
+    });
+
     window.addEventListener('beforeinstallprompt' as any, (e: any) => {
       e.preventDefault();
       this._deferredPrompt = e;
       
       const dismissed = sessionStorage.getItem('pwa-prompt-dismissed');
-      if (!dismissed) {
+      if (!dismissed && hasSeenWelcome()) {
         this._showInstallPrompt = true;
       }
     });
