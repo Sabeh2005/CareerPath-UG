@@ -409,6 +409,8 @@ export class AppQuiz extends LitElement {
     this._level = level;
     this._step = 2;
     this._save();
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   }
 
   private _toggleSubject(id: string) {
@@ -427,12 +429,16 @@ export class AppQuiz extends LitElement {
     this._step = 4;
     saveQuizResults(this._results);
     this._save();
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   }
 
   private _selectTrack(track: ALevelTrack) {
     this._alevelTrack = track;
     this._step = 3;
     this._save();
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   }
 
   private _selectStrength(strength: string) {
@@ -501,6 +507,8 @@ export class AppQuiz extends LitElement {
     this._step = 4;
     saveQuizResults(this._results);
     this._save();
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   }
 
   private _reset() {
@@ -513,6 +521,8 @@ export class AppQuiz extends LitElement {
     this._completed = false;
     clearQuiz();
     this.requestUpdate();
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   }
 
   private _strengthOptions(): { id: string; label: string }[] {
@@ -593,7 +603,7 @@ export class AppQuiz extends LitElement {
         )}
       </div>
       <div class="nav-buttons">
-        <button class="btn btn-secondary" @click=${() => { this._step = 1; this._level = null; this.requestUpdate(); }}>
+        <button class="btn btn-secondary" @click=${() => { this._step = 1; this._level = null; this.requestUpdate(); document.documentElement.scrollTop = 0; document.body.scrollTop = 0; }}>
           Back
         </button>
         <button
@@ -635,7 +645,7 @@ export class AppQuiz extends LitElement {
         </button>
       </div>
       <div class="nav-buttons">
-        <button class="btn btn-secondary" @click=${() => { this._step = 1; this._level = null; this.requestUpdate(); }}>
+        <button class="btn btn-secondary" @click=${() => { this._step = 1; this._level = null; this.requestUpdate(); document.documentElement.scrollTop = 0; document.body.scrollTop = 0; }}>
           Back
         </button>
       </div>
@@ -657,7 +667,7 @@ export class AppQuiz extends LitElement {
         )}
       </div>
       <div class="nav-buttons">
-        <button class="btn btn-secondary" @click=${() => { this._step = 2; this._alevelTrack = null; this.requestUpdate(); }}>
+        <button class="btn btn-secondary" @click=${() => { this._step = 2; this._alevelTrack = null; this.requestUpdate(); document.documentElement.scrollTop = 0; document.body.scrollTop = 0; }}>
           Back
         </button>
       </div>

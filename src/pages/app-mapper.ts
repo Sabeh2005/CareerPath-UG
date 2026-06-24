@@ -54,6 +54,8 @@ export class AppMapper extends LitElement {
       this._mappedCareers = [];
       this._suggestedCombo = '';
       saveMapperState({ mode: 'landing', olevelSubjects: [], selectedCombo: '' });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
     }
   };
 
@@ -555,6 +557,8 @@ export class AppMapper extends LitElement {
     this._mappedCareers = [];
     this._suggestedCombo = '';
     saveMapperState({ mode: level, olevelSubjects: [], selectedCombo: '' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   }
 
   render() {
