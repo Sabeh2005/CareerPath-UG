@@ -265,6 +265,8 @@ export class AppResults extends LitElement {
     this._results = [];
     this._hasResults = false;
     this.requestUpdate();
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   }
 
   render() {
