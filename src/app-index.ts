@@ -14,6 +14,7 @@ export class AppIndex extends LitElement {
   @state() private _currentTab = 'home';
   @state() private _deferredPrompt: any = null;
   @state() private _showInstallPrompt = false;
+  @state() private _showIosPrompt = false;
 
   static styles = css`
     :host {
@@ -232,6 +233,15 @@ export class AppIndex extends LitElement {
     }
   }
 
+  private _isIos() {
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    return /iphone|ipad|ipod/.test(userAgent);
+  }
+
+  private _isInStandaloneMode() {
+    return ('standalone' in window.navigator) && ((window.navigator as any).standalone === true);
+  }
+
   connectedCallback() {
     super.connectedCallback();
 
@@ -245,10 +255,23 @@ export class AppIndex extends LitElement {
 
     this.addEventListener('welcome-dismissed', () => {
       const dismissed = sessionStorage.getItem('pwa-prompt-dismissed');
-      if (!dismissed && this._deferredPrompt) {
-        this._showInstallPrompt = true;
+      if (!dismissed) {
+        if (this._deferredPrompt) {
+          this._showInstallPrompt = true;
+        } else if (this._isIos() && !this._isInStandaloneMode()) {
+          this._showIosPrompt = true;
+        }
       }
     });
+
+    if (hasSeenWelcome()) {
+      const dismissed = sessionStorage.getItem('pwa-prompt-dismissed');
+      if (!dismissed && this._isIos() && !this._isInStandaloneMode()) {
+        setTimeout(() => {
+          this._showIosPrompt = true;
+        }, 1500);
+      }
+    }
 
     window.addEventListener('beforeinstallprompt' as any, (e: any) => {
       e.preventDefault();
@@ -268,6 +291,11 @@ export class AppIndex extends LitElement {
 
   private _dismissInstall() {
     this._showInstallPrompt = false;
+    sessionStorage.setItem('pwa-prompt-dismissed', 'true');
+  }
+
+  private _dismissIosInstall() {
+    this._showIosPrompt = false;
     sessionStorage.setItem('pwa-prompt-dismissed', 'true');
   }
 
@@ -317,6 +345,28 @@ export class AppIndex extends LitElement {
                 </button>
                 <button class="ip-btn ip-btn-install" @click=${this._installApp}>
                   Install
+                </button>
+              </div>
+            </div>
+          `
+        : ''}
+
+      ${this._showIosPrompt
+        ? html`
+            <div class="install-prompt">
+              <div class="ip-header">
+                <img class="ip-icon" src="/assets/icons/icon_192.png" alt="CareerPath UG" />
+                <div class="ip-title-group">
+                  <h3>Install CareerPath UG</h3>
+                  <p>Add to Home Screen</p>
+                </div>
+              </div>
+              <p class="ip-description">
+                To install this app on your iPhone or iPad, tap the <strong>Share</strong> icon below, then scroll down and tap <strong>Add to Home Screen</strong>.
+              </p>
+              <div class="ip-actions">
+                <button class="ip-btn ip-btn-later" @click=${this._dismissIosInstall}>
+                  Got it
                 </button>
               </div>
             </div>
