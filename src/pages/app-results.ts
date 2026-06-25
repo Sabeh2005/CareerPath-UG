@@ -271,7 +271,7 @@ export class AppResults extends LitElement {
 
   render() {
     return html`
-      <app-header></app-header>
+      <app-header pageTitle="Your Results"></app-header>
       <div class="results-page">
         ${this._hasResults
           ? this._renderSavedResults()

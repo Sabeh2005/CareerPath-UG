@@ -551,7 +551,7 @@ export class AppQuiz extends LitElement {
     }
 
     return html`
-      <app-header></app-header>
+      <app-header pageTitle="Career Match Quiz"></app-header>
       <div class="quiz-page">
         <div class="step-indicator">
           <div class="step-dot ${this._step >= 1 ? 'active' : ''} ${this._step > 1 ? 'done' : ''}"></div>
@@ -676,7 +676,7 @@ export class AppQuiz extends LitElement {
 
   private _renderResults() {
     return html`
-      <app-header></app-header>
+      <app-header pageTitle="Career Match Quiz"></app-header>
       <div class="quiz-page">
         <div class="result-header">
           <div class="big-icon">🎉</div>

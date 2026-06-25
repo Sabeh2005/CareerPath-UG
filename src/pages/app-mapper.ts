@@ -563,7 +563,7 @@ export class AppMapper extends LitElement {
 
   render() {
     return html`
-      <app-header></app-header>
+      <app-header pageTitle="Subject Mapper"></app-header>
       <div class="mapper-page">
         ${this._view === 'landing' ? this._renderLanding() : ''}
         ${this._view === 'olevel' ? this._renderOLevelView() : ''}

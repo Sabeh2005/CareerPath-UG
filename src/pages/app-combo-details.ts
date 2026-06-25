@@ -271,7 +271,7 @@ export class AppComboDetails extends LitElement {
 
     if (!combo || !mapping) {
       return html`
-        <app-header></app-header>
+        <app-header pageTitle="Combination Details"></app-header>
         <div class="details-page">
           <div class="empty-state">
             <div class="icon">🔍</div>
@@ -286,7 +286,7 @@ export class AppComboDetails extends LitElement {
     }
 
     return html`
-      <app-header></app-header>
+      <app-header pageTitle="Combination Details"></app-header>
       <div class="details-page">
         <!-- Hero Card -->
         <div class="hero-section">

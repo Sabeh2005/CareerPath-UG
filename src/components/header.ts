@@ -1,10 +1,11 @@
 import { LitElement, css, html } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
+import { customElement, state, property } from 'lit/decorators.js';
 import { getTheme, toggleTheme } from '../utils';
 import type { Theme } from '../utils';
 
 @customElement('app-header')
 export class AppHeader extends LitElement {
+  @property({ type: String }) pageTitle = 'CareerPath UG';
   @state() private _theme: Theme = 'light';
   @state() private _hidden = false;
 
@@ -212,7 +213,7 @@ export class AppHeader extends LitElement {
         </div>
         <div class="center">
           <div class="logo">CP</div>
-          <h1>CareerPath UG</h1>
+          <h1>${this.pageTitle}</h1>
         </div>
         <div class="right">
           <button class="theme-toggle" @click=${this._handleThemeToggle} aria-label="Toggle theme">
