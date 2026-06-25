@@ -46,6 +46,12 @@ export const router = new Router({
       plugins: [lazy(() => import('./pages/app-careers-list.js'))],
       render: () => html`<app-careers-list></app-careers-list>`,
     },
+    {
+      path: resolveRouterPath('search'),
+      title: 'Search',
+      plugins: [lazy(() => import('./pages/app-search.js'))],
+      render: () => html`<app-search></app-search>`,
+    },
   ],
 });
 

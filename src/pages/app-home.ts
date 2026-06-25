@@ -113,6 +113,34 @@ export class AppHome extends LitElement {
         margin: 0;
       }
 
+      .home-search-container {
+        margin: 24px 16px 0;
+      }
+      .home-search-bar {
+        display: flex;
+        align-items: center;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-full);
+        padding: 14px 20px;
+        box-shadow: var(--shadow-sm);
+        cursor: text;
+        transition: all 0.3s ease;
+      }
+      .home-search-bar:hover, .home-search-bar:active {
+        border-color: var(--emerald);
+        box-shadow: 0 0 0 3px rgba(0, 184, 148, 0.1);
+      }
+      .home-search-icon {
+        font-size: 20px;
+        margin-right: 12px;
+        color: var(--gray-400);
+      }
+      .home-search-placeholder {
+        color: var(--gray-500);
+        font-size: 16px;
+      }
+
       .features {
         display: flex;
         flex-direction: column;
@@ -342,6 +370,13 @@ export class AppHome extends LitElement {
                 <img class="hero-icon" src="/assets/icons/512x512.png" alt="CareerPath UG" />
                 <h1>CareerPath UG</h1>
                 <p>Map your subjects to modern, high-earning careers</p>
+              </div>
+
+              <div class="home-search-container" @click=${() => router.navigate(resolveRouterPath('search'))}>
+                <div class="home-search-bar">
+                  <span class="home-search-icon">🔍</span>
+                  <span class="home-search-placeholder">Search careers, degrees, combos...</span>
+                </div>
               </div>
 
               <div class="features">

@@ -224,6 +224,20 @@ export class AppCareersList extends LitElement {
     `
   ];
 
+  connectedCallback() {
+    super.connectedCallback();
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get('q');
+    const tab = params.get('tab');
+    
+    if (q) {
+      this._searchTerm = decodeURIComponent(q).toLowerCase();
+    }
+    if (tab === 'careers' || tab === 'degrees') {
+      this._activeTab = tab;
+    }
+  }
+
   private _handleSearch(e: Event) {
     const input = e.target as HTMLInputElement;
     this._searchTerm = input.value.toLowerCase();
