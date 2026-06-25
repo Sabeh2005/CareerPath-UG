@@ -224,6 +224,7 @@ export class AppIndex extends LitElement {
       '': 'home',
       'quiz': 'quiz',
       'mapper': 'mapper',
+      'careers-list': 'careers-list',
       'results': 'results',
     };
     if (normalized.startsWith('combination/')) {

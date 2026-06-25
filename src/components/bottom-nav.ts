@@ -12,6 +12,7 @@ const TABS: NavTab[] = [
   { id: 'home', label: 'Home', icon: '🏠', path: '/' },
   { id: 'quiz', label: 'Quiz', icon: '📋', path: '/quiz' },
   { id: 'mapper', label: 'Mapper', icon: '🗺️', path: '/mapper' },
+  { id: 'careers-list', label: 'Careers', icon: '🎓', path: '/careers-list' },
   { id: 'results', label: 'Results', icon: '📊', path: '/results' },
 ];
 

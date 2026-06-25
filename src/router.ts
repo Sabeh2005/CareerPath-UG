@@ -40,6 +40,12 @@ export const router = new Router({
       plugins: [lazy(() => import('./pages/app-results.js'))],
       render: () => html`<app-results></app-results>`,
     },
+    {
+      path: resolveRouterPath('careers-list'),
+      title: 'Careers & Degrees',
+      plugins: [lazy(() => import('./pages/app-careers-list.js'))],
+      render: () => html`<app-careers-list></app-careers-list>`,
+    },
   ],
 });
 

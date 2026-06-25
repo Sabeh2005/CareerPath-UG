@@ -358,6 +358,13 @@ export class AppHome extends LitElement {
                   <p>Map your O-Level or A-Level subjects to university degrees and the careers they unlock.</p>
                   <span class="arrow">Explore Mapper →</span>
                 </div>
+
+                <div class="feature-card" @click=${() => router.navigate(resolveRouterPath('careers-list'))}>
+                  <div class="fc-icon blue">🎓</div>
+                  <h3>Careers & Degrees List</h3>
+                  <p>Explore all available careers, degrees, and subject combinations with salary insights.</p>
+                  <span class="arrow">View List →</span>
+                </div>
               </div>
 
               <div class="stats">
