@@ -45,6 +45,36 @@ export function setTheme(theme: Theme): void {
     localStorage.setItem(THEME_KEY, theme);
   } catch { /* ignore */ }
   document.documentElement.setAttribute('data-theme', theme);
+  
+  // Update Shoelace theme class
+  if (theme === 'dark') {
+    document.documentElement.classList.add('sl-theme-dark');
+  } else {
+    document.documentElement.classList.remove('sl-theme-dark');
+  }
+
+  // Update theme-color meta tag
+  const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+  if (metaThemeColor) {
+    metaThemeColor.setAttribute('content', theme === 'dark' ? '#071126' : '#FFFFFF');
+  }
+
+  // Update Apple status bar style
+  const metaAppleStatus = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
+  if (metaAppleStatus) {
+    metaAppleStatus.setAttribute('content', theme === 'dark' ? 'black-translucent' : 'default');
+  }
+
+  // Update Shoelace stylesheet
+  let shoelaceLink = document.getElementById('shoelace-theme-link') as HTMLLinkElement | null;
+  if (!shoelaceLink) {
+    shoelaceLink = document.createElement('link');
+    shoelaceLink.id = 'shoelace-theme-link';
+    shoelaceLink.rel = 'stylesheet';
+    document.head.appendChild(shoelaceLink);
+  }
+  const themeName = theme === 'light' ? 'light' : 'dark';
+  shoelaceLink.href = `https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.18.0/dist/themes/${themeName}.css`;
 }
 
 export function toggleTheme(): Theme {

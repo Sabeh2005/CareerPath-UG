@@ -374,8 +374,7 @@ export class AppIndex extends LitElement {
           `
         : ''}
 
-      <!-- Shoelace theme import -->
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.18.0/dist/themes/light.css" />
+      <!-- Shoelace theme is injected dynamically by utils.ts -->
     `;
   }
 }

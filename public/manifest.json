@@ -5,17 +5,46 @@
   "short_name": "CareerPath UG",
   "description": "Map your subjects to modern, high-earning careers. Career guidance for O-Level and A-Level students in Uganda.",
   "display": "standalone",
-  "display_override": ["window-controls-overlay"],
+  "display_override": [
+    "window-controls-overlay"
+  ],
   "start_url": "/",
   "theme_color": "#FFFFFF",
   "background_color": "#FFFFFF",
   "orientation": "any",
-  "categories": ["education", "productivity"],
+  "categories": [
+    "education",
+    "productivity"
+  ],
   "lang": "en",
   "launch_handler": {
     "client_mode": "focus-existing"
   },
   "icons": [
+    {
+      "src": "/assets/splash/manifest-icon-192.maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/splash/manifest-icon-192.maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/splash/manifest-icon-512.maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/splash/manifest-icon-512.maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
     {
       "src": "assets/icons/icon_48.png",
       "sizes": "48x48",
@@ -37,25 +66,9 @@
       "type": "image/png"
     },
     {
-      "src": "assets/icons/icon_192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
       "src": "assets/icons/icon_384.png",
       "sizes": "384x384",
       "type": "image/png"
-    },
-    {
-      "src": "assets/icons/icon_512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
-      "src": "assets/icons/icon_512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
     }
   ],
   "screenshots": [
@@ -73,21 +86,36 @@
       "short_name": "Quiz",
       "description": "Take the career match quiz to discover modern careers",
       "url": "/quiz",
-      "icons": [{ "src": "assets/icons/icon_192.png", "sizes": "192x192" }]
+      "icons": [
+        {
+          "src": "assets/icons/icon_192.png",
+          "sizes": "192x192"
+        }
+      ]
     },
     {
       "name": "Subject Mapper",
       "short_name": "Mapper",
       "description": "Map your subjects to university degrees and careers",
       "url": "/mapper",
-      "icons": [{ "src": "assets/icons/icon_192.png", "sizes": "192x192" }]
+      "icons": [
+        {
+          "src": "assets/icons/icon_192.png",
+          "sizes": "192x192"
+        }
+      ]
     },
     {
       "name": "My Results",
       "short_name": "Results",
       "description": "View your saved career match results",
       "url": "/results",
-      "icons": [{ "src": "assets/icons/icon_192.png", "sizes": "192x192" }]
+      "icons": [
+        {
+          "src": "assets/icons/icon_192.png",
+          "sizes": "192x192"
+        }
+      ]
     }
   ]
 }
