@@ -15,6 +15,7 @@ export class AppIndex extends LitElement {
   @state() private _deferredPrompt: any = null;
   @state() private _showInstallPrompt = false;
   @state() private _showIosPrompt = false;
+  @state() private _hasSeenWelcome = hasSeenWelcome();
 
   static styles = css`
     :host {
@@ -255,6 +256,7 @@ export class AppIndex extends LitElement {
     });
 
     this.addEventListener('welcome-dismissed', () => {
+      this._hasSeenWelcome = true;
       const dismissed = sessionStorage.getItem('pwa-prompt-dismissed');
       if (!dismissed) {
         if (this._deferredPrompt) {
@@ -322,10 +324,14 @@ export class AppIndex extends LitElement {
         ${router.render()}
       </div>
 
-      <bottom-nav
-        activeTab=${this._currentTab}
-        @nav-change=${this._handleNavChange}
-      ></bottom-nav>
+      ${this._hasSeenWelcome
+        ? html`
+            <bottom-nav
+              activeTab=${this._currentTab}
+              @nav-change=${this._handleNavChange}
+            ></bottom-nav>
+          `
+        : ''}
 
       ${this._showInstallPrompt
         ? html`
