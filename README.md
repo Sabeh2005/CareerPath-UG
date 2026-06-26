@@ -4,7 +4,7 @@
 
 CareerPath UG is a Progressive Web App (PWA) built for O-Level and A-Level students in Uganda. It helps you discover modern career paths, university degree programs, and subject combinations — all fully offline.
 
-![CareerPath UG](public/assets/icons/icon.svg)
+![CareerPath UG](public/assets/CareerPath%20UG%20app%20icon.png)
 
 ---
 
@@ -24,6 +24,9 @@ Map your subjects to university degrees and modern careers:
 
 ### 📊 Saved Results
 Your quiz results are automatically saved using `localStorage`. Access them anytime from the Results tab.
+
+### 🔍 Global Search
+Quickly find specific careers, degrees, or subjects using the built-in PWA search functionality across the application.
 
 ---
 
@@ -105,6 +108,13 @@ src/
     ├── app-mapper.ts     # Subject & Course Mapper
     └── app-results.ts    # Saved results viewer
 ```
+
+---
+
+## Team & Creators
+
+- **Sabeh Ahmed**
+- **Mufeeza Rafee**
 
 ---
 
