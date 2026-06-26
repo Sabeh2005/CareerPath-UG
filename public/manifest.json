@@ -63,7 +63,7 @@
       "url": "/quiz",
       "icons": [
         {
-          "src": "assets/icons/icon_192.png",
+          "src": "/assets/icons/manifest-icon-192.png",
           "sizes": "192x192"
         }
       ]
@@ -75,7 +75,7 @@
       "url": "/mapper",
       "icons": [
         {
-          "src": "assets/icons/icon_192.png",
+          "src": "/assets/icons/manifest-icon-192.png",
           "sizes": "192x192"
         }
       ]
@@ -87,7 +87,7 @@
       "url": "/results",
       "icons": [
         {
-          "src": "assets/icons/icon_192.png",
+          "src": "/assets/icons/manifest-icon-192.png",
           "sizes": "192x192"
         }
       ]
