@@ -400,6 +400,13 @@ export class AppHome extends LitElement {
                   <p>Explore all available careers, degrees, and subject combinations with salary insights.</p>
                   <span class="arrow">View List →</span>
                 </div>
+
+                <div class="feature-card" @click=${() => router.navigate(resolveRouterPath('about'))}>
+                  <div class="fc-icon" style="background: rgba(236, 72, 153, 0.1); color: #EC4899;">ℹ️</div>
+                  <h3>About</h3>
+                  <p>Learn more about CareerPath UG and meet the project team behind the app.</p>
+                  <span class="arrow" style="color: #EC4899;">Read More →</span>
+                </div>
               </div>
 
               <div class="stats">
