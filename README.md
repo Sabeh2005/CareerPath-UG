@@ -28,6 +28,15 @@ Your quiz results are automatically saved using `localStorage`. Access them anyt
 ### 🔍 Global Search
 Quickly find specific careers, degrees, or subjects using the built-in PWA search functionality across the application.
 
+### 🏢 Comprehensive Careers Directory
+Browse through an extensive list of modern, high-earning career paths in Uganda. Discover the roles, required skills, and matching university degrees for each profession.
+
+### 📚 Detailed Subject Combination Analysis
+Deep-dive into specific NCDC A-Level subject combinations to view admission cut-off weights, recommended university courses, and precise career outcomes.
+
+### ℹ️ About Page
+Meet the team behind CareerPath UG and learn about our mission to provide accessible, offline career guidance to Ugandan students.
+
 ---
 
 ## Tech Stack
@@ -103,10 +112,14 @@ src/
 │   ├── header.ts         # Top navigation bar
 │   └── bottom-nav.ts     # Bottom tab navigation
 └── pages/
-    ├── app-home.ts       # Welcome screen and home page
-    ├── app-quiz.ts       # Career Match Quiz
-    ├── app-mapper.ts     # Subject & Course Mapper
-    └── app-results.ts    # Saved results viewer
+    ├── app-home.ts          # Welcome screen and home page
+    ├── app-quiz.ts          # Career Match Quiz
+    ├── app-mapper.ts        # Subject & Course Mapper
+    ├── app-results.ts       # Saved results viewer
+    ├── app-search.ts        # Global search functionality
+    ├── app-careers-list.ts  # Comprehensive careers directory
+    ├── app-combo-details.ts # Detailed subject combination analysis
+    └── app-about.ts         # Project and team information
 ```
 
 ---
