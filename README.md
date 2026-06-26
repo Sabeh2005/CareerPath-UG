@@ -111,10 +111,53 @@ src/
 
 ---
 
-## Team & Creators
+## Project Team
 
-- **Sabeh Ahmed**
-- **Mufeeza Rafee**
+**1. Sabeh Ahmed (Lead Developer & System Architect)**
+- **Core Role:** Full-stack software development and deployment.
+- **Key Responsibilities:**
+  - Wrote the core codebase and configured the Progressive Web App (PWA) service workers for offline accessibility.
+  - Managed version control and code updates via the GitHub Repository.
+  - Hosted and deployed the live web application on Vercel.
+  - Translated UI/UX wireframes into functional, interactive front-end web components.
+
+**2. Mufeeza Rafee (Lead UI/UX Designer)**
+- **Core Role:** User interface design and visual identity.
+- **Key Responsibilities:**
+  - Designed the interface layouts, typography, and color schemes tailored for Ugandan students.
+  - Created mobile-first wireframes to ensure seamless navigation across entry-level smartphones.
+  - Designed the visual assets, branding elements, and application icons required for the PWA manifest.
+
+**3. Jiya Patel (Educational Content Researcher)**
+- **Core Role:** Curriculum mapping and academic data sourcing.
+- **Key Responsibilities:**
+  - Sourced and verified NCDC A-Level subject combinations (HEG, BCM, PCM, etc.).
+  - Mapped these combinations directly to matching undergraduate courses in Ugandan universities.
+  - Compiled standard university admission requirements and cut-off weights for entry-level guidance.
+
+**4. Aamir Zeenat (Labor Market Analyst)**
+- **Core Role:** Career pathway mapping and industry research.
+- **Key Responsibilities:**
+  - Researched the Ugandan job market to align university courses with actual career paths and job titles.
+  - Curated essential skill sets and job descriptions for each industry profile in the app.
+  - Audited the final data to ensure career recommendations reflect current economic demands in East Africa.
+
+**5. Muwanguzi Promise Ashbel (Quality Assurance Analyst & Product Manager)**
+- **Core Role:** Project timelines, user testing, and data verification.
+- **Key Responsibilities:**
+  - Set internal project milestones to coordinate data collection with the coding schedule.
+  - Conducted cross-browser and cross-device testing to identify bugs, broken links, or scaling issues on Vercel.
+  - Led user-acceptance testing (UAT) by gathering initial feedback on app usability from peers and teachers.
+
+### Summary Table
+
+| Team Member | Project Designation | Primary Contributions to the PWA |
+|---|---|---|
+| Sabeh Ahmed | Lead Developer | App architecture, PWA configurations, GitHub, Vercel hosting. |
+| Mufeeza Rafee | UI/UX Designer | Wireframing, mobile layout design, and branding assets. |
+| Jiya Patel | Educational Researcher | Mapping NCDC A-Level combinations to tertiary courses. |
+| Aamir Zeenat | Labor Market Analyst | Researching regional job profiles, skills, and industry trends. |
+| Muwanguzi Promise Ashbel | Quality Assurance & PM | Milestone tracking, cross-device testing, user feedback. |
 
 ---
 
