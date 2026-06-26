@@ -163,4 +163,4 @@ src/
 
 ## License
 
-ISC
+MIT License
