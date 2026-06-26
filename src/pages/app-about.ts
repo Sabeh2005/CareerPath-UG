@@ -65,6 +65,9 @@ export class AppAbout extends LitElement {
       .avatar.pink {
         background: linear-gradient(135deg, #EC4899, #BE185D);
       }
+      .avatar.green {
+        background: linear-gradient(135deg, #10B981, #059669);
+      }
       .avatar.default {
         background: linear-gradient(135deg, #9CA3AF, #4B5563);
       }
@@ -184,9 +187,7 @@ export class AppAbout extends LitElement {
 
           <div class="team-card">
             <div class="team-header">
-              <div class="avatar" style="background: transparent;">
-                <img src="/CareerPath UG About page data/Zeenat profile picture.png" alt="Aamir Zeenat" style="width: 100%; height: 100%; object-fit: cover; object-position: center top;" />
-              </div>
+              <div class="avatar green">Z</div>
               <div class="team-info">
                 <h3>Aamir Zeenat</h3>
                 <p>Labor Market Analyst</p>
