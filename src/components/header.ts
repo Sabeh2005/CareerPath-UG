@@ -47,11 +47,11 @@ export class AppHeader extends LitElement {
       flex: 1;
     }
 
-    /* Center: logo + title */
+    /* Center: title */
     .center {
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: center;
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
@@ -97,19 +97,7 @@ export class AppHeader extends LitElement {
       white-space: nowrap;
     }
 
-    .logo {
-      width: 28px;
-      height: 28px;
-      background: linear-gradient(135deg, var(--emerald), var(--emerald-dark));
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--white);
-      flex-shrink: 0;
-    }
+
 
     /* Theme toggle pill */
     .theme-toggle {
@@ -212,7 +200,6 @@ export class AppHeader extends LitElement {
           </button>
         </div>
         <div class="center">
-          <div class="logo">CP</div>
           <h1>${this.pageTitle}</h1>
         </div>
         <div class="right">
