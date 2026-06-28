@@ -216,7 +216,9 @@ export class AppAbout extends LitElement {
           
           <div class="team-card">
             <div class="team-header">
-              <div class="avatar blue">S</div>
+              <div class="avatar" style="background: transparent;">
+                <img src="/CareerPath UG About page data/Sabeh profile picture.png" alt="Sabeh Ahmed" style="width: 100%; height: 100%; object-fit: cover; object-position: center top;" />
+              </div>
               <div class="team-info">
                 <h3>Sabeh Ahmed</h3>
                 <p>Lead Developer & System Architect</p>
